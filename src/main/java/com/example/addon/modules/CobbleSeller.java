@@ -149,6 +149,9 @@ public class CobbleSeller extends Module {
     private boolean pendingPostCmd  = false;
     private int     postCmdTickDelay = 0;
 
+    // ---- COOLDOWN 来源标记 (区分出售/回服消息) ----
+    private boolean cooldownFromSell = false;
+
     // ---- 防掉线 ----
     private long lastAntiAFKTime = 0;
 
@@ -249,7 +252,7 @@ public class CobbleSeller extends Module {
         int count = countCobblestone();
 
         // ---- 闲置检测 ----
-        updateIdleDetection(count, selling);
+        updateIdleDetection(count);
 
         // ---- 回服后指令倒计时 (无论出售开关都运行) ----
         if (pendingPostCmd) {
@@ -340,7 +343,10 @@ public class CobbleSeller extends Module {
             }
             case COOLDOWN -> {
                 if (!pendingPostCmd) {
-                    if (!isLobby()) {
+                    if (cooldownFromSell) {
+                        info("§a§l[出售] 出售完成！");
+                        cooldownFromSell = false;
+                    } else if (!isLobby()) {
                         info("§a§l[系统] 回服成功！");
                         reconnectRetryCount = 0;
                     } else {
@@ -389,14 +395,20 @@ public class CobbleSeller extends Module {
             int finalCheck = countCobblestone();
             if (finalCheck > exactCountBeforeSell) exactCountBeforeSell = finalCheck;
 
-            if (!mc.player.currentScreenHandler.getSlot(sellSlot.get()).getStack().isEmpty()) {
-                mc.interactionManager.clickSlot(syncId, sellSubmitSlot.get(), 0,
-                    SlotActionType.PICKUP, mc.player);
-                mc.interactionManager.clickSlot(syncId, sellSlot.get(), 0,
-                    SlotActionType.PICKUP, mc.player);
+            try {
+                if (!mc.player.currentScreenHandler.getSlot(sellSlot.get()).getStack().isEmpty()) {
+                    mc.interactionManager.clickSlot(syncId, sellSubmitSlot.get(), 0,
+                        SlotActionType.PICKUP, mc.player);
+                    mc.interactionManager.clickSlot(syncId, sellSlot.get(), 0,
+                        SlotActionType.PICKUP, mc.player);
+                    mc.player.closeHandledScreen();
+                    tickDelay = 20;
+                } else {
+                    tickDelay = 10;
+                }
+            } catch (IndexOutOfBoundsException e) {
+                info("§c§l[系统] 出售槽位越界！请检查出售按钮/提交槽位配置");
                 mc.player.closeHandledScreen();
-                tickDelay = 20;
-            } else {
                 tickDelay = 10;
             }
             state = State.RETRY_DELAY;
@@ -419,6 +431,7 @@ public class CobbleSeller extends Module {
             lastSellTime = System.currentTimeMillis();
             state   = State.COOLDOWN;
             tickDelay = sellCooldown.get() / 50;
+            cooldownFromSell = true;
         } else if (sellRetryCount < maxRetries) {
             // 出售失败, 重试
             sellRetryCount++;
@@ -433,6 +446,7 @@ public class CobbleSeller extends Module {
             lastSellTime = System.currentTimeMillis();
             state   = State.COOLDOWN;
             tickDelay = sellCooldown.get() / 50;
+            cooldownFromSell = true;
         }
     }
 
@@ -599,12 +613,16 @@ public class CobbleSeller extends Module {
         String raw = survivalPlayers.get().trim();
         if (raw.isEmpty()) return false;
 
+        // Tab 列表为空 (刚进服) → 无法判断，不触发
+        var playerList = mc.getNetworkHandler().getPlayerList();
+        if (playerList.isEmpty()) return false;
+
         String[] names = raw.split(",");
         for (String name : names) {
             String n = name.trim();
             if (n.isEmpty()) continue;
             try {
-                for (var entry : mc.getNetworkHandler().getPlayerList()) {
+                for (var entry : playerList) {
                     String playerName = entry.getDisplayName() != null
                         ? entry.getDisplayName().getString() : "";
                     if (playerName.equalsIgnoreCase(n)) {
@@ -649,7 +667,7 @@ public class CobbleSeller extends Module {
     //  §  闲  置  检  测
     // ================================================================
 
-    private void updateIdleDetection(int count, boolean selling) {
+    private void updateIdleDetection(int count) {
         int timeoutSec = idleTimeout.get();
         if (timeoutSec <= 0) return;
 
