@@ -17,15 +17,20 @@ repositories {
         name = "meteor-maven-snapshots"
         url = uri("https://maven.meteordev.org/snapshots")
     }
+    maven {
+        name = "modrinth"
+        url = uri("https://api.modrinth.com/maven")
+    }
 }
 
 dependencies {
     // Fabric
     minecraft(libs.minecraft)
-    implementation(libs.fabric.loader)
+    mappings(libs.yarn)
+    modImplementation(libs.fabric.loader)
 
     // Meteor
-    implementation(libs.meteor.client)
+    modImplementation(libs.meteor.client)
 }
 
 java {
@@ -35,12 +40,18 @@ java {
 }
 
 fun toMinecraftCompat(version: String): String {
-    val match = Regex("""^(\d{2})\.([1-9]\d*)(?:\.([1-9]\d*))?$""")
-        .matchEntire(version)
-        ?: error("Invalid Minecraft version format: $version. Expected YY.D or YY.D.H")
-
-    val (year, drop, _) = match.destructured
-    return "~$year.$drop"
+    // New Mojang format: 26.1 or 26.1.2 → ~26.1
+    val newMatch = Regex("""^(\d{2})\.([1-9]\d*)(?:\.([1-9]\d*))?$""").matchEntire(version)
+    if (newMatch != null) {
+        val (year, drop) = newMatch.destructured
+        return "~$year.$drop"
+    }
+    // Old format: 1.21.1 → 1.21.1
+    val oldMatch = Regex("""^(\d+)\.(\d+)\.(\d+)$""").matchEntire(version)
+    if (oldMatch != null) {
+        return version
+    }
+    error("Invalid Minecraft version format: $version")
 }
 
 tasks {
@@ -72,5 +83,9 @@ tasks {
                 "-Xlint:unchecked"
             )
         )
+    }
+
+    runClient {
+        jvmArgs("-XX:+IgnoreUnrecognizedVMOptions", "-Xmx4G", "-Xms2G", "-Dorg.lwjgl.opengl.Display.allowSoftwareOpenGL=true")
     }
 }

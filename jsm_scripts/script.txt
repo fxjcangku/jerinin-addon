@@ -1,0 +1,384 @@
+// ====================================================================
+// 背包圆石检测
+// ====================================================================
+
+const CobblestoneHelper = {
+    // ==============================================================
+    // ⚙️ 全局设置区
+    // ==============================================================
+    config: {
+        // --------------------------------------------------
+        // 📦 【1. 交易与背包配置】
+        // --------------------------------------------------
+        SELL_THRESHOLD: 1700,    // 提前出售防爆仓阈值
+        PRICE_PER_COBBLE: 0.5,   // 单个圆石价格
+        CHECK_INTERVAL: 150,     // 循环扫描间隔（毫秒）
+        SELL_COOLDOWN: 1500,     // 出售冷却防T
+        SLOT_SUBMIT: 50,         // GUI槽位：提交
+        SLOT_SELL: 49,           // GUI槽位：出售
+
+        // --------------------------------------------------
+        // 🌀 【2. 自动回服菜单配置】
+        // --------------------------------------------------
+        RECONNECT_COOLDOWN: 10000, // 回服防连点冷却（毫秒）
+        ENABLE_POST_CMD: false,    // 开关：回服后是否自动执行指令
+        POST_CMD: "/home zr",      // 指令：回服后自动执行的指令
+        POST_CMD_DELAY: 2500,      // 延迟：等待地形加载的毫秒数
+        
+        MENU_STEPS: [13],          // 菜单路径：目前为 13
+
+        // --------------------------------------------------
+        // 📍 【3. 大厅双重检测配置】
+        // --------------------------------------------------
+        // 🟢 主力方案：坐标检测 (默认生效)
+        LOBBY_X: 45,       // 大厅 X 坐标
+        LOBBY_Y: 114,      // 大厅 Y 坐标
+        LOBBY_Z: 68,       // 大厅 Z 坐标
+        LOBBY_RADIUS: 10,  // 检测半径
+
+        // 🟡 备用方案：文本检测 (暂时关闭，手动开启)
+        ENABLE_KEYWORD_CHECK: false, 
+        LOBBY_KEYWORDS: ["大厅", "大廳", "Lobby", "lobby", "Rubik SMP"], 
+
+        // --------------------------------------------------
+        // ⌨️ 【4. 按键绑定】
+        // --------------------------------------------------
+        TOGGLE_KEY: "key.keyboard.right.alt", // 启停快捷键
+
+        // --------------------------------------------------
+        // 🖥️ 【5. HUD 显示配置】
+        // --------------------------------------------------
+        SHOW_STANDBY_HUD: true // true=显示待机防御HUD，false=清空HUD
+    },
+
+    // --- 运行状态 ---
+    state: {
+        enabled: true,
+        isSelling: false,
+        lastSellTime: 0,
+        lastToggle: 0,
+        lastReconnect: 0,
+        totalSold: 0,        
+        totalMoney: 0,
+        accumulatedTime: 0,          
+        sessionStartTime: Date.now(),
+        escapeCount: 0,          
+        isReconnecting: false    
+    },
+
+    // --- 安全工具库 ---
+    utils: {
+        safeInventory() {
+            try { return Player.openInventory() || null; } catch (e) { return null; }
+        },
+        isInGame() {
+            try { return Player.getPlayer() != null; } catch (e) { return false; }
+        }
+    },
+
+    // --- 核心功能流水线 ---
+
+    isLobby() {
+        try {
+            let player = Player.getPlayer();
+            if (!player) return false;
+
+            let px = player.getX();
+            let py = player.getY();
+            let pz = player.getZ();
+
+            let dx = px - this.config.LOBBY_X;
+            let dy = py - this.config.LOBBY_Y;
+            let dz = pz - this.config.LOBBY_Z;
+            let distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
+
+            if (distance <= this.config.LOBBY_RADIUS) {
+                return true; 
+            }
+
+            if (this.config.ENABLE_KEYWORD_CHECK) {
+                let header = World.getTabListHeader();
+                let footer = World.getTabListFooter();
+                let hStr = header ? header.getString() : "";
+                let fStr = footer ? footer.getString() : "";
+                for (let kw of this.config.LOBBY_KEYWORDS) {
+                    if (hStr.includes(kw) || fStr.includes(kw)) return true;
+                }
+                
+                let sb = World.getScoreboard();
+                if (sb) {
+                    let sbStr = sb.toString(); 
+                    for (let kw of this.config.LOBBY_KEYWORDS) {
+                        if (sbStr.includes(kw)) return true;
+                    }
+                }
+
+                let players = World.getPlayers();
+                if (players) {
+                    for (let i = 0; i < players.size(); i++) {
+                        let pName = players.get(i).getName().getString();
+                        for (let kw of this.config.LOBBY_KEYWORDS) {
+                            if (pName.includes(kw)) return true;
+                        }
+                    }
+                }
+            }
+
+            return false;
+        } catch (e) {
+            return false;
+        }
+    },
+
+    countCobblestone() {
+        try {
+            let inv = this.utils.safeInventory();
+            if (!inv) return 0;
+            let map = inv.getMap();
+            if (!map) return 0;
+
+            let slots = (map.get("main") || []).concat(map.get("hotbar") || []);
+            let count = 0;
+
+            for (let i of slots) {
+                try {
+                    let item = inv.getSlot(i);
+                    if (item && !item.isEmpty() && item.getItemId() === "minecraft:cobblestone") {
+                        count += item.getCount();
+                    }
+                } catch (e) {}
+            }
+            return count;
+        } catch (e) {
+            return 0;
+        }
+    },
+
+    autoReconnect() {
+        try {
+            if (Date.now() - this.state.lastReconnect < this.config.RECONNECT_COOLDOWN) return;
+            if (!this.isLobby()) return;
+
+            this.state.lastReconnect = Date.now(); 
+            this.state.isReconnecting = true;
+            Chat.log("🚨 §d§l⚡ [系统] §e§l检测到大厅状态，启动自动回服序列...");
+            
+            Chat.say("/menu");
+            
+            for (let i = 0; i < this.config.MENU_STEPS.length; i++) {
+                let targetSlot = this.config.MENU_STEPS[i];
+                let clicked = false;
+                
+                for (let attempt = 1; attempt <= 15; attempt++) {
+                    Time.sleep(200); 
+                    let gui = this.utils.safeInventory();
+                    
+                    if (gui && gui.getTotalSlots() > targetSlot) {
+                        let item = gui.getSlot(targetSlot);
+                        if (item && !item.isEmpty()) {
+                            Chat.log("🖱️ §d§l⚡ [回服] §b§l抓取 UI 成功 (扫描 " + attempt + " 次) ➔ 点击槽位 §f§l" + targetSlot);
+                            gui.click(targetSlot);
+                            clicked = true;
+                            break; 
+                        }
+                    }
+                }
+
+                if (!clicked) {
+                    Chat.log("⚠️ §c§l[系统] 高延迟警告：等待 3 秒仍未加载出第 " + targetSlot + " 格，放弃本次尝试！");
+                }
+            }
+
+            Time.sleep(2000); 
+
+            if (!this.isLobby()) {
+                this.state.escapeCount++;
+                Chat.log("🎉 §a§l✔ [系统] 回服成功！");
+                
+                if (this.config.ENABLE_POST_CMD) {
+                    Chat.log("⏳ §d§l⚡ [回服] §e§l等待地形加载，准备执行预设指令...");
+                    Time.sleep(this.config.POST_CMD_DELAY);
+                    
+                    if (!this.isLobby()) { 
+                        Chat.say(this.config.POST_CMD);
+                        Chat.log("✅ §a§l✔ [回服] 指令 [" + this.config.POST_CMD + "] 已触发！");
+                    }
+                }
+            } else {
+                this.state.lastReconnect = Date.now() - this.config.RECONNECT_COOLDOWN + 3000; 
+            }
+            this.state.isReconnecting = false;
+        } catch (e) {
+            this.state.isReconnecting = false;
+            Chat.log("❌ §c§l[系统] 回服过程中遇到意外报错，已拦截保护！");
+        }
+    },
+
+    sell(total) {
+        if (this.state.isSelling || !this.utils.isInGame()) return;
+        this.state.isSelling = true;
+        let success = false;
+        let exactCountBeforeSell = total; 
+
+        for (let attempt = 1; attempt <= 5; attempt++) {
+            try {
+                if (!this.utils.isInGame()) {
+                    this.state.isSelling = false;
+                    return;
+                }
+
+                Chat.say("/sell");
+                Time.sleep(600);
+
+                let inv = this.utils.safeInventory();
+                if (!inv) {
+                    Time.sleep(400);
+                    continue;
+                }
+
+                let finalCheckCount = this.countCobblestone();
+                if (finalCheckCount > exactCountBeforeSell) {
+                    exactCountBeforeSell = finalCheckCount;
+                }
+
+                let sellBtn = inv.getSlot(this.config.SLOT_SELL);
+                if (sellBtn && !sellBtn.isEmpty()) {
+                    inv.click(this.config.SLOT_SUBMIT);
+                    Time.sleep(200); 
+                    inv.click(this.config.SLOT_SELL);
+                    
+                    Time.sleep(1000); 
+                    
+                    let afterCount = this.countCobblestone();
+                    if (afterCount < this.config.SELL_THRESHOLD) {
+                        success = true;
+                        break;
+                    } else {
+                        Chat.log("⚠️ §c§l[系统] 监测到服务器延迟，出售未生效，重试 (" + attempt + "/5)...");
+                        Time.sleep(500); 
+                    }
+                } else {
+                    Time.sleep(300);
+                }
+            } catch (e) {
+                Time.sleep(500);
+            }
+        }
+
+        if (success) {
+            this.state.lastSellTime = Date.now();
+            this.state.totalSold += exactCountBeforeSell; 
+            this.state.totalMoney += exactCountBeforeSell * this.config.PRICE_PER_COBBLE;
+        }
+        this.state.isSelling = false;
+    },
+
+    showHUD(total) {
+        if (!this.state.enabled) {
+            if (this.config.SHOW_STANDBY_HUD) {
+                let escapes = this.state.escapeCount > 0 ? "§e§l" + this.state.escapeCount : "§7§l0";
+                Chat.actionbar("🏆 §f§lRECONNECTS: " + escapes);
+            } else {
+                Chat.actionbar(""); 
+            }
+            return;
+        }
+
+        let status = "🟢 §a§lON";
+        if (this.state.isReconnecting) {
+            status = "🌀 §d§lRECONNECTING...";
+        } else if (this.state.isSelling) {
+            status = "💸 §6§lSELLING...";
+        }
+
+        let moneyText = "§6§l" + (this.state.totalMoney / 10000).toFixed(1) + "W";
+        
+        let currentRunMs = this.state.enabled ? (Date.now() - this.state.sessionStartTime) : 0;
+        let totalMs = this.state.accumulatedTime + currentRunMs;
+        let runTimeHours = totalMs / 3600000;
+        
+        let speedText = "§7§lCalc...";
+        if (runTimeHours > 0.003) {
+            let speedW = (this.state.totalSold / runTimeHours / 10000).toFixed(1);
+            if (parseFloat(speedW) < 100.0) {
+                speedText = "§c§l" + speedW + "W/h(Low)";
+            } else {
+                speedText = "§a§l" + speedW + "W/h";
+            }
+        }
+
+        let escapes = this.state.escapeCount > 0 ? " §7§l| 🏆 §f§lRECONNECTS: §e§l" + this.state.escapeCount : "";
+
+        Chat.actionbar(
+            "🧱 §f§lCOBBLE §7§l| " + status +
+            " §7§l| 📦 §f§lSTOCK: §e§l" + total + "§7§l/§c§l" + this.config.SELL_THRESHOLD +
+            " §7§l| ⚡ §f§lSPEED: " + speedText +
+            " §7§l| 💰 §f§lPROFIT: " + moneyText + escapes
+        );
+    },
+
+    showStartupPage() {
+        Chat.log("§b§m==================================================");
+        Chat.log("✨ §e§l背包圆石检测 §a§l[已开启]");
+        Chat.log("👨‍💻 §c§lBy Jerinin");
+        Chat.log("🎮 §c§l快捷键: §e§l【右 Alt】§f§l启动/暂停 | 暂停时HUD仅显示回服次数");
+        Chat.log("§b§m==================================================");
+    },
+
+    // --- 核心引擎 ---
+    start() {
+        this.showStartupPage();
+
+        while (true) {
+            try {
+                if (!this.utils.isInGame()) {
+                    Time.sleep(1000);
+                    continue;
+                }
+
+                if (KeyBind.getPressedKeys().contains(this.config.TOGGLE_KEY) && (Date.now() - this.state.lastToggle > 300)) {
+                    this.state.enabled = !this.state.enabled;
+                    this.state.lastToggle = Date.now();
+                    
+                    if (this.state.enabled) {
+                        this.state.sessionStartTime = Date.now();
+                        Chat.log("▶️ §a§l[系统] ✔ 挂机模块已启动");
+                    } else {
+                        this.state.accumulatedTime += (Date.now() - this.state.sessionStartTime);
+                        
+                        let totalMinutes = Math.floor(this.state.accumulatedTime / 60000);
+                        let hours = Math.floor(totalMinutes / 60);
+                        let mins = totalMinutes % 60;
+                        let moneyW = (this.state.totalMoney / 10000).toFixed(1);
+                        
+                        Chat.log("⏸️ §c§l[系统] ✖ 挂机吸收已暂停 (防掉线监控仍在后台运行)");
+                        Chat.log("📊 §e§l[统计] 📈 累计挂机: §b§l" + hours + " §f§l小时 §b§l" + mins + " §f§l分钟 §7§l| 💰 §f§l累计收益: §6§l" + moneyW + "W");
+                    }
+                }
+
+                this.autoReconnect();
+
+                let total = 0;
+                if (this.state.enabled) {
+                    total = this.countCobblestone();
+                }
+                
+                this.showHUD(total);
+
+                if (this.state.enabled && !this.state.isSelling && !this.state.isReconnecting) {
+                    if (total >= this.config.SELL_THRESHOLD && (Date.now() - this.state.lastSellTime > this.config.SELL_COOLDOWN)) {
+                        this.sell(total);
+                    }
+                }
+            } catch (e) {
+                this.state.isSelling = false;
+                this.state.isReconnecting = false;
+                Time.sleep(1000); 
+            }
+            Time.sleep(this.config.CHECK_INTERVAL);
+        }
+    }
+};
+
+// 启动程序
+CobblestoneHelper.start();

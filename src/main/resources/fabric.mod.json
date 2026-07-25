@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
-  "id": "addon-template",
+  "id": "jerinin-addon",
   "version": "${version}",
-  "name": "Addon Template",
-  "description": "An addon template for Meteor Client addons.",
+  "name": "Jerinin Addon",
+  "description": "Rubik SMP 定制插件 - 圆石自动出售 & 回服 By Jerinin",
   "authors": [
-    "seasnail"
+    "Jerinin"
   ],
   "contact": {
-    "sources": "https://github.com/MeteorDevelopment/meteor-addon-template"
+    "sources": "https://github.com/Jerinin/jerinin-addon"
   },
   "icon": "assets/template/icon.png",
   "environment": "client",
