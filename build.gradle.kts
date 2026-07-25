@@ -1,3 +1,14 @@
+import proguard.gradle.ProGuardTask
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("com.guardsquare:proguard-gradle:7.4.2")
+    }
+}
+
 plugins {
     alias(libs.plugins.fabric.loom)
 }
@@ -40,18 +51,43 @@ java {
 }
 
 fun toMinecraftCompat(version: String): String {
-    // New Mojang format: 26.1 or 26.1.2 → ~26.1
     val newMatch = Regex("""^(\d{2})\.([1-9]\d*)(?:\.([1-9]\d*))?$""").matchEntire(version)
     if (newMatch != null) {
         val (year, drop) = newMatch.destructured
         return "~$year.$drop"
     }
-    // Old format: 1.21.1 → 1.21.1
     val oldMatch = Regex("""^(\d+)\.(\d+)\.(\d+)$""").matchEntire(version)
     if (oldMatch != null) {
         return version
     }
     error("Invalid Minecraft version format: $version")
+}
+
+// ================================================================
+//  混  淆  任  务  (编译 class → 乱码 class, 源码不变)
+// ================================================================
+tasks.register<ProGuardTask>("obfuscate") {
+    dependsOn(tasks.remapJar)
+
+    val remappedJar = tasks.remapJar.get().archiveFile.get().asFile
+    val obfuscatedDir = layout.buildDirectory.dir("obfuscated").get().asFile
+
+    injars(remappedJar)
+    outjars(File(obfuscatedDir, remappedJar.name))
+
+    // 用编译类路径当 libraryjars
+    libraryjars(
+        files(
+            sourceSets.main.get().compileClasspath,
+            "${System.getProperty("java.home")}/jmods/java.base.jmod"
+        )
+    )
+
+    configuration(file("proguard.pro"))
+}
+
+tasks.remapJar {
+    finalizedBy(tasks.named("obfuscate"))
 }
 
 tasks {

@@ -64,8 +64,11 @@ public class CobbleSeller extends Module {
     private final Setting<String> menuSlots = sgReconnect.add(new StringSetting.Builder()
         .name("菜单槽位").description("回服需点击的格子, 多个用逗号分隔 (如: 13,22)").defaultValue("13").build());
 
+    private final Setting<String> menuCommand = sgReconnect.add(new StringSetting.Builder()
+        .name("菜单指令").description("打开菜单的指令 (不含/)").defaultValue("menu").build());
+
     private final Setting<Integer> menuClickInterval = sgReconnect.add(new IntSetting.Builder()
-        .name("点击间隔(ms)").description("多个槽位时每次点击之间的延迟").defaultValue(300).min(100).sliderMax(2000).build());
+        .name("点击间隔(ms)").description("多个槽位时每次点击之间的延迟").defaultValue(500).min(100).sliderMax(2000).build());
 
     private final Setting<Integer> reconnectMaxRetries = sgReconnect.add(new IntSetting.Builder()
         .name("回服最大重试").description("回服失败后的最大重试次数").defaultValue(5).min(1).sliderMax(20).build());
@@ -91,6 +94,9 @@ public class CobbleSeller extends Module {
     private final Setting<Integer> lobbyRadius = sgLobby.add(new IntSetting.Builder()
         .name("检测半径").description("以大厅坐标为中心的回城检测范围").defaultValue(10).min(1).build());
 
+    private final Setting<Boolean> enableCoordinateCheck = sgLobby.add(new BoolSetting.Builder()
+        .name("坐标检测").description("根据坐标判断是否在大厅").defaultValue(true).build());
+
     private final Setting<Boolean> enableKeywordCheck = sgLobby.add(new BoolSetting.Builder()
         .name("关键词检测").description("备用: 检测Tab列表中的大厅关键词").defaultValue(false).build());
 
@@ -109,6 +115,12 @@ public class CobbleSeller extends Module {
 
     private final Setting<Integer> idleTimeout = sgHUD.add(new IntSetting.Builder()
         .name("闲置超时(秒)").description("多少秒没捡到圆石就隐藏HUD, 0=关闭").defaultValue(10).min(0).sliderMax(600).build());
+
+    private final Setting<Boolean> enableAntiAFK = sgHUD.add(new BoolSetting.Builder()
+        .name("防掉线").description("定期自动跳跃防止被服务器踢出").defaultValue(false).build());
+
+    private final Setting<Integer> antiAFKInterval = sgHUD.add(new IntSetting.Builder()
+        .name("防掉线间隔(秒)").description("多久执行一次防掉线动作").defaultValue(30).min(5).sliderMax(300).build());
 
     // ================================================================
     //  §  状  态  机
@@ -136,6 +148,9 @@ public class CobbleSeller extends Module {
     // ---- 回服后指令 ----
     private boolean pendingPostCmd  = false;
     private int     postCmdTickDelay = 0;
+
+    // ---- 防掉线 ----
+    private long lastAntiAFKTime = 0;
 
     // ================================================================
     //  §  统  计
@@ -197,6 +212,7 @@ public class CobbleSeller extends Module {
         lastKnownCount   = -1;
         idleAlerted         = false;
         salePausedNotified  = false;
+        lastAntiAFKTime     = System.currentTimeMillis();
         lobbyCacheReset();
         showStartupBanner();
     }
@@ -235,6 +251,26 @@ public class CobbleSeller extends Module {
         // ---- 闲置检测 ----
         updateIdleDetection(count, selling);
 
+        // ---- 回服后指令倒计时 (无论出售开关都运行) ----
+        if (pendingPostCmd) {
+            postCmdTickDelay--;
+            if (postCmdTickDelay <= 0) {
+                pendingPostCmd = false;
+                if (enablePostCmd.get()) {
+                    mc.player.networkHandler.sendChatCommand(postCmd.get());
+                    info("§a§l[回服] 指令 [" + postCmd.get() + "] 已触发！");
+                }
+            }
+        }
+
+        // ---- 防掉线: 定期跳跃 (无论出售开关都运行) ----
+        if (enableAntiAFK.get() && mc.player.isOnGround()
+            && mc.currentScreen == null
+            && System.currentTimeMillis() - lastAntiAFKTime > antiAFKInterval.get() * 1000L) {
+            mc.player.jump();
+            lastAntiAFKTime = System.currentTimeMillis();
+        }
+
         // ---- 暂停出售模式 ----
         if (!selling) {
             if (!salePausedNotified) {
@@ -257,18 +293,6 @@ public class CobbleSeller extends Module {
 
         updateActiveHUD(count);
 
-        // ---- 回服后指令 ----
-        if (pendingPostCmd) {
-            postCmdTickDelay--;
-            if (postCmdTickDelay <= 0) {
-                pendingPostCmd = false;
-                if (enablePostCmd.get()) {
-                    mc.player.networkHandler.sendChatCommand(postCmd.get());
-                    info("§a§l[回服] 指令 [" + postCmd.get() + "] 已触发！");
-                }
-            }
-        }
-
         // ---- 状态机 ----
         runStateMachine(count);
     }
@@ -277,68 +301,73 @@ public class CobbleSeller extends Module {
     //  §  状  态  机  逻  辑
     // ================================================================
 
-    private void runStateMachine(int count) {
-        switch (state) {
-
-            // ---- 空闲, 检测触发条件 ----
+    // ---- 共享回服状态处理 (消除代码重复) ----
+    // 返回 true = 已处理 (回服相关状态), false = 出售相关状态, 需调用方自行处理
+    private boolean handleReconnectState() {
+        return switch (state) {
             case IDLE -> {
-                // 优先: 大厅检测 → 回服
-                if (enableReconnect.get() && isLobby()) {
-                    startReconnectSequence();
+                if (!isLobby()) reconnectRetryCount = 0;
+                if (enableReconnect.get() && isLobby()
+                    && System.currentTimeMillis() - lastReconnect > 5000) {
+                    if (reconnectRetryCount < reconnectMaxRetries.get()) {
+                        startReconnectSequence();
+                    } else if (System.currentTimeMillis() - lastReconnect > 30000) {
+                        reconnectRetryCount = 0;
+                        startReconnectSequence();
+                    }
                 }
-                // 其次: 圆石满 → 出售
-                else if (count >= sellThreshold.get()
-                      && System.currentTimeMillis() - lastSellTime > sellCooldown.get()) {
-                    startSellSequence(count);
-                }
+                yield true;
             }
-
-            // ---- 等待回服菜单 GUI 打开 ----
             case RECONNECT_WAIT_GUI -> {
                 if (hasContainerGUI()) {
-                    clickReconnectSlot();
+                    tickDelay = menuClickInterval.get() / 50;
+                    state = State.RECONNECT_CLICK_DELAY;
                 } else if (guiWaitTicks >= 60) {
                     info("§c§l[系统] 高延迟警告：等待 3 秒仍未加载菜单！");
                     state = State.IDLE;
                 } else {
                     guiWaitTicks++;
                 }
+                yield true;
             }
-
-            // ---- 多槽位点击间隔 ----
             case RECONNECT_CLICK_DELAY -> {
                 if (hasContainerGUI()) {
                     clickReconnectSlot();
                 } else {
                     reconnectRetryWithMenu();
                 }
+                yield true;
             }
-
-            // ---- 等待出售 GUI 打开 ----
-            case SELL_WAIT_GUI -> handleSellGUI();
-
-            // ---- 出售后验证 ----
-            case RETRY_DELAY -> verifySellResult();
-
-            // ---- 冷却结束, 回到空闲 ----
             case COOLDOWN -> {
-                if (!pendingPostCmd && !isLobby()) {
-                    info("§a§l[系统] 回服成功！");
-                    lastReconnect = 0;
-                } else if (!pendingPostCmd && isLobby()) {
-                    reconnectRetryCount++;
-                    if (reconnectRetryCount < reconnectMaxRetries.get()) {
-                        lastReconnect = System.currentTimeMillis() - 7000;
-                        info("§c§l[系统] 回服未成功，重试 ("
-                            + reconnectRetryCount + "/" + reconnectMaxRetries.get() + ")...");
-                    } else {
-                        info("§c§l[系统] 回服重试 " + reconnectMaxRetries.get() + " 次均失败，放弃");
-                        lastReconnect = System.currentTimeMillis();
+                if (!pendingPostCmd) {
+                    if (!isLobby()) {
+                        info("§a§l[系统] 回服成功！");
                         reconnectRetryCount = 0;
+                    } else {
+                        info("§e§l[系统] 回服未确认，等待冷却后重试...");
                     }
                 }
                 state = State.IDLE;
+                yield true;
             }
+            default -> false;
+        };
+    }
+
+    private void runStateMachine(int count) {
+        if (handleReconnectState()) {
+            // 回服状态已处理 (含 IDLE), 如果仍在 IDLE 则检查出售
+            if (state == State.IDLE
+                && count >= sellThreshold.get()
+                && System.currentTimeMillis() - lastSellTime > sellCooldown.get()) {
+                startSellSequence(count);
+            }
+            return;
+        }
+        // 出售相关状态
+        switch (state) {
+            case SELL_WAIT_GUI -> handleSellGUI();
+            case RETRY_DELAY -> verifySellResult();
         }
     }
 
@@ -414,9 +443,11 @@ public class CobbleSeller extends Module {
     private void startReconnectSequence() {
         parsedMenuSlots = parseSlots();
         menuClickIndex  = 0;
-        reconnectRetryCount = 0;
-        info("§e§l[系统] 检测到大厅状态，启动自动回服序列...");
-        mc.player.networkHandler.sendChatCommand("menu");
+        lobbyCacheReset();  // 清除大厅缓存，确保下次检测准确
+        reconnectRetryCount++;  // 递增重试计数
+        info("§e§l[系统] 检测到大厅状态，启动自动回服序列... (第 "
+            + reconnectRetryCount + "/" + reconnectMaxRetries.get() + " 次)");
+        mc.player.networkHandler.sendChatCommand(menuCommand.get());
         state = State.RECONNECT_WAIT_GUI;
         guiWaitTicks = 0;
         lastReconnect = System.currentTimeMillis();
@@ -445,65 +476,31 @@ public class CobbleSeller extends Module {
     }
 
     private void reconnectRetryWithMenu() {
-        info("§c§l[系统] 菜单意外关闭，重新打开...");
-        reconnectRetryCount++;
-        if (reconnectRetryCount < reconnectMaxRetries.get()) {
-            mc.player.networkHandler.sendChatCommand("menu");
-            state = State.RECONNECT_WAIT_GUI;
-            guiWaitTicks = 0;
-            menuClickIndex = 0;
-        } else {
+        // 冷却检查：避免疯狂重发菜单
+        if (System.currentTimeMillis() - lastReconnect < 5000) {
+            state = State.IDLE;
+            return;
+        }
+        if (reconnectRetryCount >= reconnectMaxRetries.get()) {
             info("§c§l[系统] 回服重试已达上限，放弃本次回服");
             state = State.IDLE;
+            return;
         }
+        info("§c§l[系统] 菜单意外关闭，重新打开...");
+        mc.player.networkHandler.sendChatCommand(menuCommand.get());
+        state = State.RECONNECT_WAIT_GUI;
+        guiWaitTicks = 0;
+        menuClickIndex = 0;
+        lastReconnect = System.currentTimeMillis();
     }
 
-    // ---- 后台回服 (出售暂停时使用, 共享完整状态机) ----
+    // ---- 后台回服 (出售暂停时使用, 复用共享状态机) ----
     private void runReconnectStatesOnly() {
         if (tickDelay > 0) { tickDelay--; return; }
 
-        switch (state) {
-            case IDLE -> {
-                if (enableReconnect.get() && isLobby()) {
-                    startReconnectSequence();
-                }
-            }
-            case RECONNECT_WAIT_GUI -> {
-                if (hasContainerGUI()) {
-                    clickReconnectSlot();
-                } else if (guiWaitTicks >= 60) {
-                    info("§c§l[系统] 高延迟：3 秒未加载菜单！");
-                    state = State.IDLE;
-                } else {
-                    guiWaitTicks++;
-                }
-            }
-            case RECONNECT_CLICK_DELAY -> {
-                if (hasContainerGUI()) {
-                    clickReconnectSlot();
-                } else {
-                    reconnectRetryWithMenu();
-                }
-            }
-            case COOLDOWN -> {
-                if (!isLobby()) {
-                    info("§a§l[系统] 回服成功！");
-                    lastReconnect = 0;
-                } else {
-                    reconnectRetryCount++;
-                    if (reconnectRetryCount < reconnectMaxRetries.get()) {
-                        lastReconnect = System.currentTimeMillis() - 7000;
-                        info("§c§l[系统] 回服未成功，重试 ("
-                            + reconnectRetryCount + "/" + reconnectMaxRetries.get() + ")...");
-                    } else {
-                        info("§c§l[系统] 回服 " + reconnectMaxRetries.get() + " 次均失败");
-                        lastReconnect = System.currentTimeMillis();
-                        reconnectRetryCount = 0;
-                    }
-                }
-                state = State.IDLE;
-            }
-            default -> state = State.IDLE; // 出售相关状态直接复位
+        if (!handleReconnectState()) {
+            // 出售相关状态, 直接复位
+            state = State.IDLE;
         }
     }
 
@@ -541,17 +538,17 @@ public class CobbleSeller extends Module {
         }
         lastLobbyCheckTime = now;
 
-        // 1. 坐标检测
-        if (checkByCoordinate()) {
+        // 1. 坐标检测 (独立开关)
+        if (enableCoordinateCheck.get() && checkByCoordinate()) {
             return cachedLobbyResult = true;
         }
 
-        // 2. Tab 关键词检测
+        // 2. Tab 关键词检测 (独立开关)
         if (enableKeywordCheck.get() && checkByTabKeyword()) {
             return cachedLobbyResult = true;
         }
 
-        // 3. 玩家名反向检测
+        // 3. 玩家名反向检测 (独立开关)
         if (enablePlayerCheck.get() && checkByPlayerAbsence()) {
             return cachedLobbyResult = true;
         }
@@ -654,7 +651,7 @@ public class CobbleSeller extends Module {
 
     private void updateIdleDetection(int count, boolean selling) {
         int timeoutSec = idleTimeout.get();
-        if (timeoutSec <= 0 || !selling) return;
+        if (timeoutSec <= 0) return;
 
         if (lastKnownCount >= 0 && count > lastKnownCount) {
             lastPickupTime = System.currentTimeMillis();
