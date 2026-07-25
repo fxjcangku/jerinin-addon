@@ -188,6 +188,7 @@ public class CobbleSeller extends Module {
     private static Field headerField;
     private static Field footerField;
     private static boolean reflectionReady;
+    private static boolean reflectionFailed;
 
     // ================================================================
     //  §  构  造  函  数
@@ -344,7 +345,7 @@ public class CobbleSeller extends Module {
             case COOLDOWN -> {
                 if (!pendingPostCmd) {
                     if (cooldownFromSell) {
-                        info("§a§l[出售] 出售完成！");
+                        // 出售成功不刷屏，HUD 已显示
                         cooldownFromSell = false;
                     } else if (!isLobby()) {
                         info("§a§l[系统] 回服成功！");
@@ -362,8 +363,8 @@ public class CobbleSeller extends Module {
 
     private void runStateMachine(int count) {
         if (handleReconnectState()) {
-            // 回服状态已处理 (含 IDLE), 如果仍在 IDLE 则检查出售
-            if (state == State.IDLE
+            // 回服状态已处理 (含 IDLE), 如果仍在 IDLE 且不在大厅则检查出售
+            if (state == State.IDLE && !isLobby()
                 && count >= sellThreshold.get()
                 && System.currentTimeMillis() - lastSellTime > sellCooldown.get()) {
                 startSellSequence(count);
@@ -637,7 +638,7 @@ public class CobbleSeller extends Module {
 
     // 缓存反射 Field (只获取一次)
     private static void ensureReflectionReady() {
-        if (reflectionReady) return;
+        if (reflectionReady || reflectionFailed) return;
         try {
             headerField = PlayerListHud.class.getDeclaredField("header");
             headerField.setAccessible(true);
@@ -645,7 +646,7 @@ public class CobbleSeller extends Module {
             footerField.setAccessible(true);
             reflectionReady = true;
         } catch (Exception e) {
-            reflectionReady = false;
+            reflectionFailed = true;
         }
     }
 
