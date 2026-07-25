@@ -1,9 +1,11 @@
 package com.example.addon;
 
 import com.example.addon.modules.CobbleSeller;
+import com.example.addon.systems.CobbleSellerHud;
 import com.mojang.logging.LogUtils;
 import meteordevelopment.meteorclient.addons.GithubRepo;
 import meteordevelopment.meteorclient.addons.MeteorAddon;
+import meteordevelopment.meteorclient.systems.hud.Hud;
 import meteordevelopment.meteorclient.systems.modules.Category;
 import meteordevelopment.meteorclient.systems.modules.Modules;
 import net.minecraft.item.Items;
@@ -20,6 +22,9 @@ public class AddonTemplate extends MeteorAddon {
 
         // Modules
         Modules.get().add(new CobbleSeller());
+
+        // HUD
+        Hud.get().register(CobbleSellerHud.INFO);
     }
 
     @Override

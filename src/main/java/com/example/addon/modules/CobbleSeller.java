@@ -7,7 +7,6 @@ import meteordevelopment.meteorclient.settings.*;
 import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.orbit.EventHandler;
 import net.minecraft.item.Items;
-import net.minecraft.text.Text;
 
 public class CobbleSeller extends Module {
 
@@ -21,11 +20,11 @@ public class CobbleSeller extends Module {
     private final SettingGroup sgHUD       = settings.createGroup("[ 界面设置 ]");
 
     // ---- 出售设置 ----
-    final Setting<Boolean> enableSelling = sgSell.add(new BoolSetting.Builder()
+    public final Setting<Boolean> enableSelling = sgSell.add(new BoolSetting.Builder()
         .name("开启自动出售").description("关闭后回服/待机HUD仍运行").defaultValue(true).build());
     final Setting<String> sellCommand = sgSell.add(new StringSetting.Builder()
         .name("出售指令").description("出售圆石的指令 (不含/)").defaultValue("sell").build());
-    final Setting<Integer> sellThreshold = sgSell.add(new IntSetting.Builder()
+    public final Setting<Integer> sellThreshold = sgSell.add(new IntSetting.Builder()
         .name("出售阈值").description("背包圆石达到此数量时自动出售").defaultValue(1700).min(1).sliderMax(5000).build());
     final Setting<Double> pricePerCobble = sgSell.add(new DoubleSetting.Builder()
         .name("圆石单价").description("每颗圆石的价值").defaultValue(0.5).min(0).build());
@@ -75,7 +74,7 @@ public class CobbleSeller extends Module {
         .name("生存服玩家").description("逗号分隔的生存服玩家名, 列表里一个都没=在大厅").defaultValue("").build());
 
     // ---- 界面设置 ----
-    final Setting<Integer> idleTimeout = sgHUD.add(new IntSetting.Builder()
+    public final Setting<Integer> idleTimeout = sgHUD.add(new IntSetting.Builder()
         .name("闲置超时(秒)").description("多少秒没捡到圆石就隐藏HUD, 0=关闭").defaultValue(10).min(0).sliderMax(600).build());
     final Setting<Boolean> enableAntiAFK = sgHUD.add(new BoolSetting.Builder()
         .name("防掉线").description("定期自动跳跃防止被服务器踢出").defaultValue(false).build());
@@ -127,6 +126,8 @@ public class CobbleSeller extends Module {
     private final ReconnectManager reconnect;
     private final HudRenderer hud;
 
+    public Statistics getStats() { return stats; }
+
     // ================================================================
     //  §  构  造  函  数
     // ================================================================
@@ -149,8 +150,7 @@ public class CobbleSeller extends Module {
             reconnectMaxRetries, enablePostCmd, postCmd, postCmdDelay,
             enableAntiAFK, antiAFKInterval);
 
-        hud = new HudRenderer(stats,
-            sellThreshold, idleTimeout, enableReconnect, enablePostCmd);
+        hud = new HudRenderer(enableReconnect, enablePostCmd);
     }
 
     // ================================================================
@@ -215,7 +215,6 @@ public class CobbleSeller extends Module {
                 salePausedNotified = true;
                 hud.showPauseStatus(this);
             }
-            mc.player.sendMessage(Text.literal(""), true);
             reconnect.runReconnectOnly(this);
             return;
         }
@@ -224,11 +223,8 @@ public class CobbleSeller extends Module {
         // ---- 冷却中 ----
         if (tickDelay > 0) {
             tickDelay--;
-            hud.render(this, count, lobby.isLobby());
             return;
         }
-
-        hud.render(this, count, lobby.isLobby());
 
         // ---- 状态机 ----
         if (reconnect.handleState(this)) {
@@ -254,6 +250,15 @@ public class CobbleSeller extends Module {
             idleAlerted = false;
         }
         lastKnownCount = count;
+
+        // 闲置超时告警 (一次性)
+        if (!idleAlerted && timeoutSec > 0) {
+            long idleMs = System.currentTimeMillis() - lastPickupTime;
+            if (idleMs >= timeoutSec * 1000L) {
+                idleAlerted = true;
+                warning("[!] 已 " + timeoutSec + " 秒无圆石产出，HUD 已收起");
+            }
+        }
     }
 
     // ================================================================
