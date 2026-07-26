@@ -75,9 +75,9 @@ public class CobbleSeller extends Module {
     final Setting<String> lobbyKeywords = sgLobby.add(new StringSetting.Builder()
         .name("大厅关键词").description("逗号分隔").defaultValue("大厅,大廳,Lobby,lobby,Rubik SMP").build());
     final Setting<Boolean> enablePlayerCheck = sgLobby.add(new BoolSetting.Builder()
-        .name("玩家名检测").description("检查列表中缺少生存服玩家=已掉入大厅").defaultValue(false).build());
+        .name("玩家名检测").description("已确认在线的生存服玩家全部从Tab消失时判定大厅").defaultValue(false).build());
     final Setting<String> survivalPlayers = sgLobby.add(new StringSetting.Builder()
-        .name("生存服玩家").description("逗号分隔的生存服玩家名, 列表里一个都没=在大厅").defaultValue("").build());
+        .name("生存服玩家").description("填写真实玩家名并用逗号分隔；不存在的名字不会触发").defaultValue("").build());
 
     // ---- 界面设置 ----
     final Setting<Boolean> enableAntiAFK = sgHUD.add(new BoolSetting.Builder()
@@ -229,6 +229,9 @@ public class CobbleSeller extends Module {
             return;
         }
         salePausedNotified = false;
+
+        // 大厅检测优先于出售冷却；坐标命中后立即进入回服流程。
+        if (reconnect.tryStartReconnect(this)) return;
 
         // ---- 冷却中 ----
         if (tickDelay > 0) {

@@ -10,6 +10,7 @@ import net.minecraft.text.Text;
 
 import java.lang.reflect.Field;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 /**
@@ -22,7 +23,12 @@ public class LobbyDetector {
     // ---- 缓存 ----
     private long    lastCheckTime = 0;
     private boolean cachedResult  = false;
+    private String  cachedReason  = "";
     private static final long CACHE_MS = 500;
+
+    // 玩家检测只在名单里的玩家曾被确认在线后，才将其全部缺失视为大厅。
+    private final Set<String> observedSurvivalPlayers = new HashSet<>();
+    private String playerConfig = "";
 
     // ---- 反射 ----
     private static Field headerField;
@@ -71,20 +77,29 @@ public class LobbyDetector {
         lastCheckTime = now;
 
         if (enableCoordinateCheck.get() && checkByCoordinate()) {
+            cachedReason = "坐标";
             return cachedResult = true;
         }
         if (enableKeywordCheck.get() && checkByTabKeyword()) {
+            cachedReason = "关键词";
             return cachedResult = true;
         }
         if (enablePlayerCheck.get() && checkByPlayerAbsence()) {
+            cachedReason = "玩家名";
             return cachedResult = true;
         }
+        cachedReason = "";
         return cachedResult = false;
+    }
+
+    public String getLastDetectionReason() {
+        return cachedReason;
     }
 
     public void cacheReset() {
         lastCheckTime = 0;
         cachedResult  = false;
+        cachedReason  = "";
     }
 
     // ---- 坐标检测 ----
@@ -98,30 +113,40 @@ public class LobbyDetector {
     // ---- Tab 关键词检测 ----
 
     private boolean checkByTabKeyword() {
-        ensureReflectionReady();
         String raw = lobbyKeywords.get().trim();
-        if (raw.isEmpty()) return false;
-        String[] keywords = raw.split(",");
+        if (raw.isEmpty() || mc.getNetworkHandler() == null || mc.world == null) return false;
 
-        for (String kw : keywords) {
-            String k = kw.trim();
-            if (k.isEmpty()) continue;
+        StringBuilder visibleText = new StringBuilder();
 
+        ensureReflectionReady();
+        if (reflectionReady) {
             try {
                 Text header = (Text) headerField.get(mc.inGameHud.getPlayerListHud());
                 Text footer = (Text) footerField.get(mc.inGameHud.getPlayerListHud());
-                if ((header != null && header.getString().contains(k))
-                 || (footer != null && footer.getString().contains(k))) return true;
+                if (header != null) visibleText.append(header.getString()).append('\n');
+                if (footer != null) visibleText.append(footer.getString()).append('\n');
             } catch (Exception ignored) {}
+        }
 
-            try {
-                Scoreboard sb = mc.world.getScoreboard();
-                if (sb != null) {
-                    ScoreboardObjective obj = sb.getObjectiveForSlot(ScoreboardDisplaySlot.SIDEBAR);
-                    if (obj != null && obj.getDisplayName() != null
-                        && obj.getDisplayName().getString().contains(k)) return true;
-                }
-            } catch (Exception ignored) {}
+        // 有些服务器把大厅标识放在 Tab 玩家显示名中。
+        for (var entry : mc.getNetworkHandler().getPlayerList()) {
+            if (entry.getDisplayName() != null) {
+                visibleText.append(entry.getDisplayName().getString()).append('\n');
+            }
+        }
+
+        try {
+            Scoreboard sb = mc.world.getScoreboard();
+            ScoreboardObjective obj = sb.getObjectiveForSlot(ScoreboardDisplaySlot.SIDEBAR);
+            if (obj != null && obj.getDisplayName() != null) {
+                visibleText.append(obj.getDisplayName().getString());
+            }
+        } catch (Exception ignored) {}
+
+        String haystack = visibleText.toString().toLowerCase(Locale.ROOT);
+        for (String keyword : raw.split(",")) {
+            String normalized = keyword.trim().toLowerCase(Locale.ROOT);
+            if (!normalized.isEmpty() && haystack.contains(normalized)) return true;
         }
         return false;
     }
@@ -132,25 +157,40 @@ public class LobbyDetector {
         String raw = survivalPlayers.get().trim();
         if (raw.isEmpty()) return false;
 
+        // 设置变化后重置已确认名单，防止旧配置影响新检测。
+        if (!raw.equals(playerConfig)) {
+            playerConfig = raw;
+            observedSurvivalPlayers.clear();
+        }
+
         var playerList = mc.getNetworkHandler().getPlayerList();
         if (playerList.isEmpty()) return false;
 
-        // 使用账户真实名称，避免 Tab 称号或队伍前缀导致误判
+        // 使用账户真实名称，避免 Tab 称号或队伍前缀导致误判。
         Set<String> onlinePlayers = new HashSet<>();
         for (var entry : playerList) {
             String name = entry.getProfile().name();
             if (!name.isEmpty()) onlinePlayers.add(name.toLowerCase());
         }
 
-        String[] names = raw.split(",");
-        for (String name : names) {
-            String n = name.trim().toLowerCase();
-            if (n.isEmpty()) continue;
-            if (onlinePlayers.contains(n)) {
-                return false;  // 有生存玩家在线 → 不在大厅
-            }
+        Set<String> configuredPlayers = new HashSet<>();
+        for (String name : raw.split(",")) {
+            String normalized = name.trim().toLowerCase();
+            if (!normalized.isEmpty()) configuredPlayers.add(normalized);
         }
-        return true;  // 没找到任何生存玩家 → 在大厅
+        if (configuredPlayers.isEmpty()) return false;
+
+        // 先确认至少有一个配置里的账号实际出现在 Tab；未确认时绝不触发回服。
+        for (String name : configuredPlayers) {
+            if (onlinePlayers.contains(name)) observedSurvivalPlayers.add(name);
+        }
+        if (observedSurvivalPlayers.isEmpty()) return false;
+
+        // 已确认过的生存服账号全部从 Tab 消失，才判定为进入大厅。
+        for (String name : observedSurvivalPlayers) {
+            if (onlinePlayers.contains(name)) return false;
+        }
+        return true;
     }
 
     // ---- 反射 (静态, 只初始化一次) ----
