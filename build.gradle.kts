@@ -86,9 +86,10 @@ tasks.register<ProGuardTask>("obfuscate") {
     configuration(file("proguard.pro"))
 }
 
-tasks.remapJar {
-    finalizedBy(tasks.named("obfuscate"))
-}
+// FIXME: ProGuard 尚不支持 JDK 25 (class version 69), 混淆暂跳过
+// tasks.remapJar {
+//     finalizedBy(tasks.named("obfuscate"))
+// }
 
 tasks {
     processResources {
@@ -122,6 +123,6 @@ tasks {
     }
 
     runClient {
-        jvmArgs("-XX:+IgnoreUnrecognizedVMOptions", "-Xmx4G", "-Xms2G", "-Dorg.lwjgl.opengl.Display.allowSoftwareOpenGL=true")
+        jvmArgs("-XX:+IgnoreUnrecognizedVMOptions", "-Xmx10G", "-Xms512M", "-Dorg.lwjgl.opengl.Display.allowSoftwareOpenGL=true")
     }
 }

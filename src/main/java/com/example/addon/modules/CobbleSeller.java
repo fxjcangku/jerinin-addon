@@ -4,11 +4,19 @@ import com.example.addon.AddonTemplate;
 import com.example.addon.systems.*;
 import meteordevelopment.meteorclient.events.world.TickEvent;
 import meteordevelopment.meteorclient.settings.*;
+import meteordevelopment.meteorclient.systems.hud.Hud;
+import meteordevelopment.meteorclient.systems.hud.HudElement;
 import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.orbit.EventHandler;
 import net.minecraft.item.Items;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CobbleSeller extends Module {
+
+    /** 20 TPS → 1 tick = 50ms */
+    public static final int TICK_MS = 50;
 
     // ================================================================
     //  §  设  置  组
@@ -26,8 +34,6 @@ public class CobbleSeller extends Module {
         .name("出售指令").description("出售圆石的指令 (不含/)").defaultValue("sell").build());
     public final Setting<Integer> sellThreshold = sgSell.add(new IntSetting.Builder()
         .name("出售阈值").description("背包圆石达到此数量时自动出售").defaultValue(1700).min(1).sliderMax(5000).build());
-    final Setting<Double> pricePerCobble = sgSell.add(new DoubleSetting.Builder()
-        .name("圆石单价").description("每颗圆石的价值").defaultValue(0.5).min(0).build());
     final Setting<Integer> sellCooldown = sgSell.add(new IntSetting.Builder()
         .name("出售冷却(ms)").description("两次出售之间的最小间隔").defaultValue(1500).min(100).build());
     final Setting<Integer> sellMaxRetries = sgSell.add(new IntSetting.Builder()
@@ -74,47 +80,69 @@ public class CobbleSeller extends Module {
         .name("生存服玩家").description("逗号分隔的生存服玩家名, 列表里一个都没=在大厅").defaultValue("").build());
 
     // ---- 界面设置 ----
-    public final Setting<Integer> idleTimeout = sgHUD.add(new IntSetting.Builder()
-        .name("闲置超时(秒)").description("多少秒没捡到圆石就隐藏HUD, 0=关闭").defaultValue(10).min(0).sliderMax(600).build());
     final Setting<Boolean> enableAntiAFK = sgHUD.add(new BoolSetting.Builder()
         .name("防掉线").description("定期自动跳跃防止被服务器踢出").defaultValue(false).build());
     final Setting<Integer> antiAFKInterval = sgHUD.add(new IntSetting.Builder()
         .name("防掉线间隔(秒)").description("多久执行一次防掉线动作").defaultValue(30).min(5).sliderMax(300).build());
 
     // ================================================================
-    //  §  状  态  机 (共享)
+    //  §  状  态  机  (出售/回服 各自冷却独立)
     // ================================================================
 
     public enum State {
         IDLE, RECONNECT_WAIT_GUI, RECONNECT_CLICK_DELAY,
-        SELL_WAIT_GUI, RETRY_DELAY, COOLDOWN
+        SELL_WAIT_GUI, RETRY_DELAY, SELL_COOLDOWN, RECONNECT_COOLDOWN
     }
 
-    public State state = State.IDLE;
+    // ================================================================
+    //  §  运  行  时  状  态  (私有, 通过 getter/setter 访问)
+    // ================================================================
 
-    // ---- 定时/计数 ----
-    public int tickDelay        = 0;
-    public int guiWaitTicks     = 0;
-    public int sellRetryCount   = 0;
-    public int reconnectRetryCount = 0;
-    public int menuClickIndex   = 0;
-    public int[] parsedMenuSlots = new int[0];
-
-    // ---- 回服后指令 ----
-    public boolean pendingPostCmd  = false;
-    public int     postCmdTickDelay = 0;
-
-    // ---- COOLDOWN 来源标记 ----
-    public boolean cooldownFromSell = false;
-
-    // ---- 防掉线时间戳 ----
-    public long lastAntiAFKTime = 0;
-
-    // ---- 闲置检测 ----
-    public long    lastPickupTime = 0;
-    public int     lastKnownCount = -1;
-    public boolean idleAlerted    = false;
+    private State state = State.IDLE;
+    private int tickDelay        = 0;
+    private int guiWaitTicks     = 0;
+    private int sellRetryCount   = 0;
+    private int reconnectRetryCount = 0;
+    private int menuClickIndex   = 0;
+    private int[] parsedMenuSlots = new int[0];
+    private boolean pendingPostCmd  = false;
+    private int     postCmdTickDelay = 0;
+    private long lastAntiAFKTime = 0;
     private boolean salePausedNotified = false;
+
+    // ================================================================
+    //  §  Getter / Setter
+    // ================================================================
+
+    public State getState() { return state; }
+    public void setState(State s) { this.state = s; }
+
+    public int getTickDelay() { return tickDelay; }
+    public void setTickDelay(int d) { this.tickDelay = d; }
+
+    public int getGuiWaitTicks() { return guiWaitTicks; }
+    public void setGuiWaitTicks(int t) { this.guiWaitTicks = t; }
+
+    public int getSellRetryCount() { return sellRetryCount; }
+    public void setSellRetryCount(int c) { this.sellRetryCount = c; }
+
+    public int getReconnectRetryCount() { return reconnectRetryCount; }
+    public void setReconnectRetryCount(int c) { this.reconnectRetryCount = c; }
+
+    public int getMenuClickIndex() { return menuClickIndex; }
+    public void setMenuClickIndex(int i) { this.menuClickIndex = i; }
+
+    public int[] getParsedMenuSlots() { return parsedMenuSlots; }
+    public void setParsedMenuSlots(int[] s) { this.parsedMenuSlots = s; }
+
+    public boolean isPendingPostCmd() { return pendingPostCmd; }
+    public void setPendingPostCmd(boolean b) { this.pendingPostCmd = b; }
+
+    public int getPostCmdTickDelay() { return postCmdTickDelay; }
+    public void setPostCmdTickDelay(int d) { this.postCmdTickDelay = d; }
+
+    public long getLastAntiAFKTime() { return lastAntiAFKTime; }
+    public void setLastAntiAFKTime(long t) { this.lastAntiAFKTime = t; }
 
     // ================================================================
     //  §  子  系  统
@@ -126,15 +154,13 @@ public class CobbleSeller extends Module {
     private final ReconnectManager reconnect;
     private final HudRenderer hud;
 
-    public Statistics getStats() { return stats; }
-
     // ================================================================
     //  §  构  造  函  数
     // ================================================================
 
     public CobbleSeller() {
         super(AddonTemplate.JERININADDONE, "圆石出售",
-            "自动出售圆石 \uff0b 大厅检测回服 \uff0b 防掉线监控");
+            "自动出售圆石 ＋ 大厅检测回服 ＋ 防掉线监控");
 
         lobby = new LobbyDetector(
             enableCoordinateCheck, lobbyX, lobbyZ, lobbyRadius,
@@ -142,7 +168,7 @@ public class CobbleSeller extends Module {
             enablePlayerCheck, survivalPlayers);
 
         sell = new SellManager(stats,
-            sellCommand, sellThreshold, pricePerCobble, sellCooldown,
+            sellCommand, sellThreshold, sellCooldown,
             sellMaxRetries, sellSlot, sellSubmitSlot);
 
         reconnect = new ReconnectManager(stats, lobby,
@@ -166,29 +192,16 @@ public class CobbleSeller extends Module {
         menuClickIndex   = 0;
         parsedMenuSlots  = new int[0];
         pendingPostCmd   = false;
-        cooldownFromSell = false;
         lastAntiAFKTime  = System.currentTimeMillis();
-        lastPickupTime   = System.currentTimeMillis();
-        lastKnownCount   = -1;
-        idleAlerted      = false;
         salePausedNotified = false;
-        stats.startSession();
         lobby.cacheReset();
+        ensureSingleHud();
         hud.showStartupBanner(this);
     }
 
     @Override
     public void onDeactivate() {
-        stats.addAccumulatedTime(System.currentTimeMillis() - stats.getTotalMs() + stats.getAccumulatedTime());
-        // actually simpler: just compute directly
-        long totalMin = stats.getTotalMin();
-        long hours = totalMin / 60;
-        long mins  = totalMin % 60;
-        double moneyW = stats.getTotalMoney() / 10000.0;
-        info("§c§l[系统] 模块已关闭 (防掉线监控停止)");
-        info(String.format(
-            "§e§l[统计] 累计挂机: §b§l%d §f§l小时 §b§l%d §f§l分钟 §7§l| §f§l累计收益: §6§l%.1fW",
-            hours, mins, moneyW));
+        info("§c§l[系统] 模块已关闭");
     }
 
     // ================================================================
@@ -201,9 +214,6 @@ public class CobbleSeller extends Module {
 
         boolean selling = enableSelling.get();
         int count = countCobblestone();
-
-        // ---- 闲置检测 ----
-        updateIdleDetection(count);
 
         // ---- 回服后指令 + 防掉线 (无论出售开关都运行) ----
         reconnect.tickPostCmd(this);
@@ -238,34 +248,26 @@ public class CobbleSeller extends Module {
         sell.handleState(this);
     }
 
-    // ================================================================
-    //  §  闲  置  检  测
-    // ================================================================
+    private void ensureSingleHud() {
+        boolean found = false;
+        List<HudElement> duplicates = new ArrayList<>();
 
-    private void updateIdleDetection(int count) {
-        int timeoutSec = idleTimeout.get();
-        if (timeoutSec <= 0) return;
-        if (lastKnownCount >= 0 && count > lastKnownCount) {
-            lastPickupTime = System.currentTimeMillis();
-            idleAlerted = false;
+        for (HudElement element : Hud.get()) {
+            if (!element.info.name.equals(CobbleSellerHud.INFO.name)) continue;
+            if (found) duplicates.add(element);
+            else found = true;
         }
-        lastKnownCount = count;
 
-        // 闲置超时告警 (一次性)
-        if (!idleAlerted && timeoutSec > 0) {
-            long idleMs = System.currentTimeMillis() - lastPickupTime;
-            if (idleMs >= timeoutSec * 1000L) {
-                idleAlerted = true;
-                warning("[!] 已 " + timeoutSec + " 秒无圆石产出，HUD 已收起");
-            }
-        }
+        if (!found) Hud.get().add(CobbleSellerHud.INFO, 4, 4);
+        for (HudElement duplicate : duplicates) duplicate.remove();
     }
 
     // ================================================================
-    //  §  圆  石  计  数  (SellManager 也需要)
+    //  §  圆  石  计  数
     // ================================================================
 
     public int countCobblestone() {
+        if (mc.player == null) return 0;
         int count = 0;
         for (int i = 0; i < mc.player.getInventory().size(); i++) {
             if (mc.player.getInventory().getStack(i).getItem() == Items.COBBLESTONE) {
@@ -276,7 +278,7 @@ public class CobbleSeller extends Module {
     }
 
     // ================================================================
-    //  §  GUI 检  测  (ReconnectManager / SellManager 都需要)
+    //  §  GUI 检  测
     // ================================================================
 
     public boolean hasContainerGUI() {

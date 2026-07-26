@@ -9,6 +9,8 @@ import net.minecraft.scoreboard.ScoreboardObjective;
 import net.minecraft.text.Text;
 
 import java.lang.reflect.Field;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * 大厅检测器 — 三种独立检测方式: 坐标 / Tab 关键词 / 玩家名缺失
@@ -133,21 +135,22 @@ public class LobbyDetector {
         var playerList = mc.getNetworkHandler().getPlayerList();
         if (playerList.isEmpty()) return false;
 
+        // 使用账户真实名称，避免 Tab 称号或队伍前缀导致误判
+        Set<String> onlinePlayers = new HashSet<>();
+        for (var entry : playerList) {
+            String name = entry.getProfile().name();
+            if (!name.isEmpty()) onlinePlayers.add(name.toLowerCase());
+        }
+
         String[] names = raw.split(",");
         for (String name : names) {
-            String n = name.trim();
+            String n = name.trim().toLowerCase();
             if (n.isEmpty()) continue;
-            try {
-                for (var entry : playerList) {
-                    String playerName = entry.getDisplayName() != null
-                        ? entry.getDisplayName().getString() : "";
-                    if (playerName.equalsIgnoreCase(n)) {
-                        return false;
-                    }
-                }
-            } catch (Exception ignored) {}
+            if (onlinePlayers.contains(n)) {
+                return false;  // 有生存玩家在线 → 不在大厅
+            }
         }
-        return true;
+        return true;  // 没找到任何生存玩家 → 在大厅
     }
 
     // ---- 反射 (静态, 只初始化一次) ----

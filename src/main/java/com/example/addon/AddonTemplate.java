@@ -14,17 +14,17 @@ import org.slf4j.Logger;
 public class AddonTemplate extends MeteorAddon {
     public static final Logger LOG = LogUtils.getLogger();
 
-    public static final Category JERININADDONE = new Category("Rubik SMP 定制插件", Items.EMERALD.getDefaultStack());
+    public static final Category JERININADDONE = new Category("Jerinin-addon", Items.EMERALD.getDefaultStack());
 
     @Override
     public void onInitialize() {
         LOG.info("Initializing Jerinin Addon");
 
+        // 先注册 HUD，确保模块激活时可以自动添加面板
+        Hud.get().register(CobbleSellerHud.INFO);
+
         // Modules
         Modules.get().add(new CobbleSeller());
-
-        // HUD
-        Hud.get().register(CobbleSellerHud.INFO);
     }
 
     @Override

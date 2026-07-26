@@ -15,7 +15,6 @@ public class SellManager {
 
     private final Setting<String>  sellCommand;
     private final Setting<Integer> sellThreshold;
-    private final Setting<Double>  pricePerCobble;
     private final Setting<Integer> sellCooldown;
     private final Setting<Integer> sellMaxRetries;
     private final Setting<Integer> sellSlot;
@@ -24,7 +23,6 @@ public class SellManager {
     public SellManager(Statistics stats,
                        Setting<String>  sellCommand,
                        Setting<Integer> sellThreshold,
-                       Setting<Double>  pricePerCobble,
                        Setting<Integer> sellCooldown,
                        Setting<Integer> sellMaxRetries,
                        Setting<Integer> sellSlot,
@@ -32,7 +30,6 @@ public class SellManager {
         this.stats = stats;
         this.sellCommand = sellCommand;
         this.sellThreshold = sellThreshold;
-        this.pricePerCobble = pricePerCobble;
         this.sellCooldown = sellCooldown;
         this.sellMaxRetries = sellMaxRetries;
         this.sellSlot = sellSlot;
@@ -43,9 +40,10 @@ public class SellManager {
 
     /** @return true = 已处理出售相关状态, false = 不在出售状态 */
     public boolean handleState(CobbleSeller mod) {
-        return switch (mod.state) {
-            case SELL_WAIT_GUI -> { handleSellGUI(mod); yield true; }
-            case RETRY_DELAY   -> { verifySellResult(mod); yield true; }
+        return switch (mod.getState()) {
+            case SELL_WAIT_GUI  -> { handleSellGUI(mod);  yield true; }
+            case RETRY_DELAY    -> { verifySellResult(mod); yield true; }
+            case SELL_COOLDOWN  -> { mod.setState(CobbleSeller.State.IDLE); yield true; }
             default -> false;
         };
     }
@@ -53,11 +51,10 @@ public class SellManager {
     // ---- 启动出售 ----
 
     public void start(CobbleSeller mod, int count) {
-        stats.setExactCountBeforeSell(count);
-        mod.sellRetryCount = 0;
+        mod.setSellRetryCount(0);
         mc.player.networkHandler.sendChatCommand(sellCommand.get());
-        mod.state = CobbleSeller.State.SELL_WAIT_GUI;
-        mod.guiWaitTicks = 0;
+        mod.setState(CobbleSeller.State.SELL_WAIT_GUI);
+        mod.setGuiWaitTicks(0);
     }
 
     // ---- 出售 GUI 处理 ----
@@ -73,21 +70,21 @@ public class SellManager {
                     mc.interactionManager.clickSlot(syncId, sellSlot.get(), 0,
                         SlotActionType.PICKUP, mc.player);
                     mc.player.closeHandledScreen();
-                    mod.tickDelay = 20;
+                    mod.setTickDelay(20);
                 } else {
-                    mod.tickDelay = 10;
+                    mod.setTickDelay(10);
                 }
             } catch (IndexOutOfBoundsException e) {
                 mod.info("§c§l[系统] 出售槽位越界！请检查出售按钮/提交槽位配置");
                 mc.player.closeHandledScreen();
-                mod.tickDelay = 10;
+                mod.setTickDelay(10);
             }
-            mod.state = CobbleSeller.State.RETRY_DELAY;
-        } else if (mod.guiWaitTicks >= 30) {
-            mod.state = CobbleSeller.State.RETRY_DELAY;
-            mod.tickDelay = 10;
+            mod.setState(CobbleSeller.State.RETRY_DELAY);
+        } else if (mod.getGuiWaitTicks() >= 30) {
+            mod.setState(CobbleSeller.State.RETRY_DELAY);
+            mod.setTickDelay(10);
         } else {
-            mod.guiWaitTicks++;
+            mod.setGuiWaitTicks(mod.getGuiWaitTicks() + 1);
         }
     }
 
@@ -98,23 +95,21 @@ public class SellManager {
         int maxRetries = sellMaxRetries.get();
 
         if (afterCount < sellThreshold.get()) {
-            stats.recordSale(stats.getExactCountBeforeSell(), pricePerCobble.get());
-            mod.state = CobbleSeller.State.COOLDOWN;
-            mod.tickDelay = sellCooldown.get() / 50;
-            mod.cooldownFromSell = true;
-        } else if (mod.sellRetryCount < maxRetries) {
-            mod.sellRetryCount++;
+            stats.setLastSellTime(System.currentTimeMillis());
+            mod.setState(CobbleSeller.State.SELL_COOLDOWN);
+            mod.setTickDelay(sellCooldown.get() / CobbleSeller.TICK_MS);
+        } else if (mod.getSellRetryCount() < maxRetries) {
+            mod.setSellRetryCount(mod.getSellRetryCount() + 1);
             mod.info("§c§l[系统] 出售未生效，重试 ("
-                + mod.sellRetryCount + "/" + maxRetries + ")...");
+                + mod.getSellRetryCount() + "/" + maxRetries + ")...");
             mc.player.networkHandler.sendChatCommand(sellCommand.get());
-            mod.state = CobbleSeller.State.SELL_WAIT_GUI;
-            mod.guiWaitTicks = 0;
+            mod.setState(CobbleSeller.State.SELL_WAIT_GUI);
+            mod.setGuiWaitTicks(0);
         } else {
             mod.info("§c§l[系统] 出售失败 " + maxRetries + " 次，放弃本次出售");
-            stats.recordSellFail();
-            mod.state = CobbleSeller.State.COOLDOWN;
-            mod.tickDelay = sellCooldown.get() / 50;
-            mod.cooldownFromSell = true;
+            stats.setLastSellTime(System.currentTimeMillis());
+            mod.setState(CobbleSeller.State.SELL_COOLDOWN);
+            mod.setTickDelay(sellCooldown.get() / CobbleSeller.TICK_MS);
         }
     }
 }
