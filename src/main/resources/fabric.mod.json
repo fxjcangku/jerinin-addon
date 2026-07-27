@@ -3,12 +3,14 @@
   "id": "jerinin-addon",
   "version": "${version}",
   "name": "Jerinin Addon",
-  "description": "Rubik SMP 定制插件 - 圆石自动出售 & 回服 By Jerinin",
+  "description": "Meteor Client 自动化扩展，提供附魔助手、圆石出售、传送重锤与界面汉化。",
   "authors": [
     "Jerinin"
   ],
   "contact": {
-    "sources": "https://github.com/Jerinin/jerinin-addon"
+    "homepage": "https://github.com/fxjcangku/jerinin-addon",
+    "sources": "https://github.com/fxjcangku/jerinin-addon",
+    "issues": "https://github.com/fxjcangku/jerinin-addon/issues"
   },
   "icon": "assets/template/icon.png",
   "environment": "client",
