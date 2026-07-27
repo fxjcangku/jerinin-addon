@@ -57,16 +57,7 @@ public class ReconnectManager {
     public boolean handleState(CobbleSeller mod) {
         return switch (mod.getState()) {
             case IDLE -> {
-                if (!lobby.isLobby()) mod.setReconnectRetryCount(0);
-                if (enableReconnect.get() && lobby.isLobby()
-                    && System.currentTimeMillis() - stats.getLastReconnect() > 5000) {
-                    if (mod.getReconnectRetryCount() < reconnectMaxRetries.get()) {
-                        startReconnectSequence(mod);
-                    } else if (System.currentTimeMillis() - stats.getLastReconnect() > 30000) {
-                        mod.setReconnectRetryCount(0);
-                        startReconnectSequence(mod);
-                    }
-                }
+                tryStartReconnect(mod);
                 yield true;
             }
             case RECONNECT_WAIT_GUI -> {
@@ -91,11 +82,36 @@ public class ReconnectManager {
             }
             case RECONNECT_COOLDOWN -> {
                 handleReconnectCooldown(mod);
-                mod.setState(CobbleSeller.State.IDLE);
                 yield true;
             }
             default -> false;
         };
+    }
+
+    // ---- IDLE 大厅检测 / 回服启动 ----
+
+    public boolean tryStartReconnect(CobbleSeller mod) {
+        if (!enableReconnect.get()) return false;
+        if (mod.getState() == CobbleSeller.State.RECONNECT_WAIT_GUI
+            || mod.getState() == CobbleSeller.State.RECONNECT_CLICK_DELAY
+            || mod.getState() == CobbleSeller.State.RECONNECT_COOLDOWN) return false;
+
+        boolean inLobby = lobby.isLobby();
+        if (!inLobby) {
+            if (mod.getState() == CobbleSeller.State.IDLE) mod.setReconnectRetryCount(0);
+            return false;
+        }
+
+        long elapsed = System.currentTimeMillis() - stats.getLastReconnect();
+        if (elapsed <= 5000) return false;
+
+        if (mod.getReconnectRetryCount() >= reconnectMaxRetries.get()) {
+            if (elapsed <= 30000) return false;
+            mod.setReconnectRetryCount(0);
+        }
+
+        startReconnectSequence(mod);
+        return true;
     }
 
     // ---- 后台 tick (出售暂停时) ----
@@ -110,16 +126,37 @@ public class ReconnectManager {
     // ---- 回服后指令 ----
 
     public void tickPostCmd(CobbleSeller mod) {
-        if (!mod.isPendingPostCmd()) return;
+        if (!mod.isPendingPostCmd() || mod.getState() != CobbleSeller.State.RECONNECT_COOLDOWN) return;
         if (mc.player == null) return;
+
+        // 仍被任一检测方式判断为大厅时不开始倒计时；5 秒后回到 IDLE 重试菜单。
+        if (lobby.isLobby()) {
+            mod.setGuiWaitTicks(mod.getGuiWaitTicks() + 1);
+            if (mod.getGuiWaitTicks() >= 100) {
+                mod.setPendingPostCmd(false);
+                mod.setState(CobbleSeller.State.IDLE);
+                mod.info("§e§l[系统] 回服未确认，等待冷却后重试...");
+            }
+            return;
+        }
+
         mod.setPostCmdTickDelay(mod.getPostCmdTickDelay() - 1);
-        if (mod.getPostCmdTickDelay() <= 0) {
-            mod.setPendingPostCmd(false);
-            if (enablePostCmd.get()) {
-                mc.player.networkHandler.sendChatCommand(postCmd.get());
-                mod.info("§a§l[回服] 指令 [" + postCmd.get() + "] 已触发！");
+        if (mod.getPostCmdTickDelay() > 0) return;
+
+        mod.setPendingPostCmd(false);
+        if (enablePostCmd.get()) {
+            String command = postCmd.get().trim();
+            if (command.startsWith("/")) command = command.substring(1);
+            if (!command.isEmpty()) {
+                mc.player.networkHandler.sendChatCommand(command);
+                mod.info("§a§l[回服] 指令 [" + command + "] 已触发！");
+            } else {
+                mod.info("§c§l[回服] 回服后指令为空，已跳过");
             }
         }
+        mod.info("§a§l[系统] 回服成功！");
+        mod.setReconnectRetryCount(0);
+        mod.setState(CobbleSeller.State.IDLE);
     }
 
     // ---- 防掉线 ----
@@ -136,13 +173,22 @@ public class ReconnectManager {
     // ---- 启动回服序列 ----
 
     private void startReconnectSequence(CobbleSeller mod) {
+        String command = menuCommand.get().trim();
+        if (command.startsWith("/")) command = command.substring(1);
+        if (command.isEmpty()) {
+            mod.info("§c§l[系统] 菜单指令为空，无法执行回服");
+            stats.setLastReconnect(System.currentTimeMillis());
+            return;
+        }
+
         mod.setParsedMenuSlots(parseSlots());
         mod.setMenuClickIndex(0);
+        String reason = lobby.getLastDetectionReason();
         lobby.cacheReset();
         mod.setReconnectRetryCount(mod.getReconnectRetryCount() + 1);
-        mod.info("§e§l[系统] 检测到大厅状态，启动自动回服序列... (第 "
+        mod.info("§e§l[系统] " + reason + "检测到大厅，启动自动回服序列... (第 "
             + mod.getReconnectRetryCount() + "/" + reconnectMaxRetries.get() + " 次)");
-        mc.player.networkHandler.sendChatCommand(menuCommand.get());
+        mc.player.networkHandler.sendChatCommand(command);
         mod.setState(CobbleSeller.State.RECONNECT_WAIT_GUI);
         mod.setGuiWaitTicks(0);
         stats.setLastReconnect(System.currentTimeMillis());
@@ -161,9 +207,10 @@ public class ReconnectManager {
         mod.setMenuClickIndex(mod.getMenuClickIndex() + 1);
         if (mod.getMenuClickIndex() >= mod.getParsedMenuSlots().length) {
             mod.setPendingPostCmd(true);
-            mod.setPostCmdTickDelay(postCmdDelay.get() / CobbleSeller.TICK_MS);
+            mod.setPostCmdTickDelay(Math.max(1, postCmdDelay.get() / CobbleSeller.TICK_MS));
+            mod.setGuiWaitTicks(0);
             mod.setState(CobbleSeller.State.RECONNECT_COOLDOWN);
-            mod.setTickDelay(40);
+            mod.setTickDelay(0);
         } else {
             mod.setState(CobbleSeller.State.RECONNECT_CLICK_DELAY);
             mod.setTickDelay(menuClickInterval.get() / CobbleSeller.TICK_MS);
@@ -193,13 +240,9 @@ public class ReconnectManager {
     // ---- RECONNECT_COOLDOWN 处理 (仅回服冷却) ----
 
     private void handleReconnectCooldown(CobbleSeller mod) {
+        // tickPostCmd 负责等待离开大厅、执行回服后指令并结束回服状态。
         if (mod.isPendingPostCmd()) return;
-        if (!lobby.isLobby()) {
-            mod.info("§a§l[系统] 回服成功！");
-            mod.setReconnectRetryCount(0);
-        } else {
-            mod.info("§e§l[系统] 回服未确认，等待冷却后重试...");
-        }
+        mod.setState(CobbleSeller.State.IDLE);
     }
 
     // ---- 解析槽位 ----

@@ -72,9 +72,9 @@ public class CobbleSeller extends Module {
     final Setting<String> lobbyKeywords = sgLobby.add(new StringSetting.Builder()
         .name("大厅关键词").description("多个关键词使用英文逗号分隔。").defaultValue("大厅,大廳,Lobby,lobby,Rubik SMP").visible(() -> enableReconnect.get() && enableKeywordCheck.get()).build());
     final Setting<Boolean> enablePlayerCheck = sgLobby.add(new BoolSetting.Builder()
-        .name("玩家识别").description("当 Tab 列表中不存在指定生存服玩家时，判定玩家已进入大厅。").defaultValue(false).visible(enableReconnect::get).build());
+        .name("玩家识别").description("已确认在线的生存服玩家全部从 Tab 消失时判定大厅。").defaultValue(false).visible(enableReconnect::get).build());
     final Setting<String> survivalPlayers = sgLobby.add(new StringSetting.Builder()
-        .name("生存服玩家").description("用于识别生存服的玩家名，多个名称使用英文逗号分隔。").defaultValue("").visible(() -> enableReconnect.get() && enablePlayerCheck.get()).build());
+        .name("生存服玩家").description("填写真实玩家名并用英文逗号分隔；不存在的名字不会触发。").defaultValue("").visible(() -> enableReconnect.get() && enablePlayerCheck.get()).build());
 
     // ---- 辅助功能 ----
     final Setting<Boolean> enablePostCmd = sgExtra.add(new BoolSetting.Builder()
@@ -232,6 +232,9 @@ public class CobbleSeller extends Module {
             return;
         }
         salePausedNotified = false;
+
+        // 大厅检测优先于出售冷却；坐标命中后立即进入回服流程。
+        if (reconnect.tryStartReconnect(this)) return;
 
         // ---- 冷却中 ----
         if (tickDelay > 0) {
