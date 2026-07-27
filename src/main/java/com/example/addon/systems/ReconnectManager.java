@@ -111,6 +111,7 @@ public class ReconnectManager {
 
     public void tickPostCmd(CobbleSeller mod) {
         if (!mod.isPendingPostCmd()) return;
+        if (mc.player == null) return;
         mod.setPostCmdTickDelay(mod.getPostCmdTickDelay() - 1);
         if (mod.getPostCmdTickDelay() <= 0) {
             mod.setPendingPostCmd(false);

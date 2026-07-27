@@ -3,6 +3,8 @@
   "package": "com.example.addon.mixin",
   "compatibilityLevel": "JAVA_21",
   "client": [
+    "ModuleTextAccessor",
+    "SettingTextAccessor"
   ],
   "injectors": {
     "defaultRequire": 1
