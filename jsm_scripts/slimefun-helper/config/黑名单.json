@@ -1,0 +1,16 @@
+[
+  { "id": "SLIMEFUN:IRON_DUST", "name": "铁粉" },
+  { "id": "SLIMEFUN:GOLD_DUST", "name": "金粉" },
+  { "id": "SLIMEFUN:COPPER_DUST", "name": "铜粉" },
+  { "id": "SLIMEFUN:TIN_DUST", "name": "锡粉" },
+  { "id": "SLIMEFUN:SILVER_DUST", "name": "银粉" },
+  { "id": "SLIMEFUN:LEAD_DUST", "name": "铅粉" },
+  { "id": "SLIMEFUN:ALUMINUM_DUST", "name": "铝粉" },
+  { "id": "SLIMEFUN:ZINC_DUST", "name": "锌粉" },
+  { "id": "SLIMEFUN:MAGNESIUM_DUST", "name": "镁粉" },
+  { "id": "SLIMEFUN:SULFATE", "name": "硫酸盐" },
+  { "id": "SLIMEFUN:CARBON", "name": "碳" },
+  { "id": "SLIMEFUN:MAGIC_LUMP_1", "name": "魔法结晶 - I" },
+  { "id": "SLIMEFUN:ENDER_LUMP_1", "name": "末影结晶 - I" },
+  { "id": "SLIMEFUN:STONE_CHUNK", "name": "石块" }
+]

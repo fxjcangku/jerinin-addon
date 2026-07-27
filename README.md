@@ -30,6 +30,13 @@
 - 提供 Meteor Client 常用模块与设置文本的中文显示
 - 可在模块列表中独立开启或关闭
 
+## JsMacros 脚本
+
+仓库的 `jsm_scripts` 目录保存独立的 JsMacros 项目：
+
+- `script.txt`：圆石出售脚本参考实现
+- `slimefun-helper`：Slimefun Helper 完整项目，包含脚本、配置和工作站配置管理器
+
 ## 环境要求
 
 - Minecraft 1.21.11

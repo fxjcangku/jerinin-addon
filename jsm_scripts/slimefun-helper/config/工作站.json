@@ -1,0 +1,640 @@
+[
+  {
+    "info": {
+      "id": "SLIMEFUN:LOGITECH_MULTICRAFTTABLE_MANUAL",
+      "name": "快捷综合工作台",
+      "priority": 21,
+      "supported": ["ENHANCED_CRAFTING_TABLE", "MAGIC_WORKBENCH", "ANCIENT_ALTAR"]
+    },
+    "structure": { "type": "single", "block": "minecraft:crafting_table" },
+    "input": {
+      "slots": [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
+        25, 26
+      ],
+      "unordered": true
+    },
+    "output": { "slots": [27, 28, 29, 33, 34, 35, 36, 37, 38, 42, 43, 44, 45, 46, 47, 51, 52, 53] },
+    "selector": { "type": "switch", "prev": 30, "next": 32, "display": 31 },
+    "craft": {
+      "type": "button",
+      "buttons": [
+        {
+          "slot": 40,
+          "actions": [
+            { "type": "left", "craftCount": 1 },
+            { "type": "right", "craftCount": 16 }
+          ]
+        },
+        {
+          "slot": 49,
+          "actions": [
+            { "type": "left", "craftCount": 64 },
+            { "type": "right", "craftCount": 3456 }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "info": {
+      "id": "SLIMEFUN:LOGITECH_ORE_CRUSHER_MANUAL",
+      "name": "快捷矿石粉碎机",
+      "priority": 20,
+      "supported": ["ORE_CRUSHER"]
+    },
+    "structure": { "type": "single", "block": "minecraft:dropper" },
+    "input": {
+      "slots": [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
+        25, 26
+      ],
+      "unordered": true
+    },
+    "output": { "slots": [27, 28, 29, 33, 34, 35, 36, 37, 38, 42, 43, 44, 45, 46, 47, 51, 52, 53] },
+    "selector": { "type": "switch", "prev": 30, "next": 32, "display": 31 },
+    "craft": {
+      "type": "button",
+      "buttons": [
+        {
+          "slot": 40,
+          "actions": [
+            { "type": "left", "craftCount": 1 },
+            { "type": "right", "craftCount": 16 }
+          ]
+        },
+        {
+          "slot": 49,
+          "actions": [
+            { "type": "left", "craftCount": 64 },
+            { "type": "right", "craftCount": 3456 }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "info": {
+      "id": "SLIMEFUN:LOGITECH_GRIND_MANUAL",
+      "name": "快捷磨石",
+      "priority": 20,
+      "supported": ["GRIND_STONE"]
+    },
+    "structure": { "type": "single", "block": "minecraft:dispenser" },
+    "input": {
+      "slots": [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
+        25, 26
+      ],
+      "unordered": true
+    },
+    "output": { "slots": [27, 28, 29, 33, 34, 35, 36, 37, 38, 42, 43, 44, 45, 46, 47, 51, 52, 53] },
+    "selector": { "type": "switch", "prev": 30, "next": 32, "display": 31 },
+    "craft": {
+      "type": "button",
+      "buttons": [
+        {
+          "slot": 40,
+          "actions": [
+            { "type": "left", "craftCount": 1 },
+            { "type": "right", "craftCount": 16 }
+          ]
+        },
+        {
+          "slot": 49,
+          "actions": [
+            { "type": "left", "craftCount": 64 },
+            { "type": "right", "craftCount": 3456 }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "info": {
+      "id": "SLIMEFUN:LOGITECH_MAGIC_WORKBENCH_MANUAL",
+      "name": "快捷魔法工作台",
+      "priority": 20,
+      "supported": ["MAGIC_WORKBENCH"]
+    },
+    "structure": { "type": "single", "block": "minecraft:bookshelf" },
+    "input": {
+      "slots": [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
+        25, 26
+      ],
+      "unordered": true
+    },
+    "output": { "slots": [27, 28, 29, 33, 34, 35, 36, 37, 38, 42, 43, 44, 45, 46, 47, 51, 52, 53] },
+    "selector": { "type": "switch", "prev": 30, "next": 32, "display": 31 },
+    "craft": {
+      "type": "button",
+      "buttons": [
+        {
+          "slot": 40,
+          "actions": [
+            { "type": "left", "craftCount": 1 },
+            { "type": "right", "craftCount": 16 }
+          ]
+        },
+        {
+          "slot": 49,
+          "actions": [
+            { "type": "left", "craftCount": 64 },
+            { "type": "right", "craftCount": 3456 }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "info": {
+      "id": "SLIMEFUN:LOGITECH_ENHANCED_CRAFT_MANUAL",
+      "name": "快捷强化工作台",
+      "priority": 20,
+      "supported": ["ENHANCED_CRAFTING_TABLE"]
+    },
+    "structure": { "type": "single", "block": "minecraft:crafting_table" },
+    "input": {
+      "slots": [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
+        25, 26
+      ],
+      "unordered": true
+    },
+    "output": { "slots": [27, 28, 29, 33, 34, 35, 36, 37, 38, 42, 43, 44, 45, 46, 47, 51, 52, 53] },
+    "selector": { "type": "switch", "prev": 30, "next": 32, "display": 31 },
+    "craft": {
+      "type": "button",
+      "buttons": [
+        {
+          "slot": 40,
+          "actions": [
+            { "type": "left", "craftCount": 1 },
+            { "type": "right", "craftCount": 16 }
+          ]
+        },
+        {
+          "slot": 49,
+          "actions": [
+            { "type": "left", "craftCount": 64 },
+            { "type": "right", "craftCount": 3456 }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "info": {
+      "id": "SLIMEFUN:LOGITECH_NTWWORKBENCH_MANUAL",
+      "name": "快捷网络工作台",
+      "priority": 20,
+      "supported": ["QUANTUM-WORKBENCH", "EXPANSION_WORKBENCH", "STORAGE_UPGRADE_TABLE"]
+    },
+    "structure": { "type": "single", "block": "minecraft:bamboo_block" },
+    "input": {
+      "slots": [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
+        25, 26
+      ],
+      "unordered": true
+    },
+    "output": { "slots": [27, 28, 29, 33, 34, 35, 36, 37, 38, 42, 43, 44, 45, 46, 47, 51, 52, 53] },
+    "selector": { "type": "switch", "prev": 30, "next": 32, "display": 31 },
+    "craft": {
+      "type": "button",
+      "buttons": [
+        {
+          "slot": 40,
+          "actions": [
+            { "type": "left", "craftCount": 1 },
+            { "type": "right", "craftCount": 16 }
+          ]
+        },
+        {
+          "slot": 49,
+          "actions": [
+            { "type": "left", "craftCount": 64 },
+            { "type": "right", "craftCount": 3456 }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "info": {
+      "id": "SLIMEFUN:LOGITECH_PRESSURE_MANUAL",
+      "name": "快捷压力机",
+      "priority": 20,
+      "supported": ["PRESSURE_CHAMBER"]
+    },
+    "structure": { "type": "single", "block": "minecraft:glass" },
+    "input": {
+      "slots": [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
+        25, 26
+      ],
+      "unordered": true
+    },
+    "output": { "slots": [27, 28, 29, 33, 34, 35, 36, 37, 38, 42, 43, 44, 45, 46, 47, 51, 52, 53] },
+    "selector": { "type": "switch", "prev": 30, "next": 32, "display": 31 },
+    "craft": {
+      "type": "button",
+      "buttons": [
+        {
+          "slot": 40,
+          "actions": [
+            { "type": "left", "craftCount": 1 },
+            { "type": "right", "craftCount": 16 }
+          ]
+        },
+        {
+          "slot": 49,
+          "actions": [
+            { "type": "left", "craftCount": 64 },
+            { "type": "right", "craftCount": 3456 }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "info": {
+      "id": "SLIMEFUN:LOGITECH_COMPRESSOR_MANUAL",
+      "name": "快捷压缩机",
+      "priority": 20,
+      "supported": ["COMPRESSOR"]
+    },
+    "structure": { "type": "single", "block": "minecraft:piston" },
+    "input": {
+      "slots": [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
+        25, 26
+      ],
+      "unordered": true
+    },
+    "output": { "slots": [27, 28, 29, 33, 34, 35, 36, 37, 38, 42, 43, 44, 45, 46, 47, 51, 52, 53] },
+    "selector": { "type": "switch", "prev": 30, "next": 32, "display": 31 },
+    "craft": {
+      "type": "button",
+      "buttons": [
+        {
+          "slot": 40,
+          "actions": [
+            { "type": "left", "craftCount": 1 },
+            { "type": "right", "craftCount": 16 }
+          ]
+        },
+        {
+          "slot": 49,
+          "actions": [
+            { "type": "left", "craftCount": 64 },
+            { "type": "right", "craftCount": 3456 }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "info": {
+      "id": "SLIMEFUN:LOGITECH_SMELTERY_MANUAL",
+      "name": "快捷冶炼炉",
+      "priority": 20,
+      "supported": ["SMELTERY"]
+    },
+    "structure": { "type": "single", "block": "minecraft:blast_furnace" },
+    "input": {
+      "slots": [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
+        25, 26
+      ],
+      "unordered": true
+    },
+    "output": { "slots": [27, 28, 29, 33, 34, 35, 36, 37, 38, 42, 43, 44, 45, 46, 47, 51, 52, 53] },
+    "selector": { "type": "switch", "prev": 30, "next": 32, "display": 31 },
+    "craft": {
+      "type": "button",
+      "buttons": [
+        {
+          "slot": 40,
+          "actions": [
+            { "type": "left", "craftCount": 1 },
+            { "type": "right", "craftCount": 16 }
+          ]
+        },
+        {
+          "slot": 49,
+          "actions": [
+            { "type": "left", "craftCount": 64 },
+            { "type": "right", "craftCount": 3456 }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "info": {
+      "id": "SLIMEFUN:LOGITECH_ANCIENT_ALTAR_MANUAL",
+      "name": "快捷远古祭坛",
+      "priority": 20,
+      "supported": ["ANCIENT_ALTAR"]
+    },
+    "structure": { "type": "single", "block": "minecraft:enchanting_table" },
+    "input": {
+      "slots": [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
+        25, 26
+      ],
+      "unordered": true
+    },
+    "output": { "slots": [27, 28, 29, 33, 34, 35, 36, 37, 38, 42, 43, 44, 45, 46, 47, 51, 52, 53] },
+    "selector": { "type": "switch", "prev": 30, "next": 32, "display": 31 },
+    "craft": {
+      "type": "button",
+      "buttons": [
+        {
+          "slot": 40,
+          "actions": [
+            { "type": "left", "craftCount": 1 },
+            { "type": "right", "craftCount": 16 }
+          ]
+        },
+        {
+          "slot": 49,
+          "actions": [
+            { "type": "left", "craftCount": 64 },
+            { "type": "right", "craftCount": 3456 }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "info": {
+      "id": "SLIMEFUN:LOGITECH_MULTIMACHINE_MANUAL",
+      "name": "快捷综合机器",
+      "priority": 20,
+      "supported": ["HEATED_PRESSURE_CHAMBER"]
+    },
+    "structure": { "type": "single", "block": "minecraft:gray_stained_glass" },
+    "input": {
+      "slots": [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
+        25, 26
+      ],
+      "unordered": true
+    },
+    "output": { "slots": [27, 28, 29, 33, 34, 35, 36, 37, 38, 42, 43, 44, 45, 46, 47, 51, 52, 53] },
+    "selector": { "type": "switch", "prev": 30, "next": 32, "display": 31 },
+    "craft": {
+      "type": "button",
+      "buttons": [
+        {
+          "slot": 40,
+          "actions": [
+            { "type": "left", "craftCount": 1 },
+            { "type": "right", "craftCount": 16 }
+          ]
+        },
+        {
+          "slot": 49,
+          "actions": [
+            { "type": "left", "craftCount": 64 },
+            { "type": "right", "craftCount": 3456 }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "info": { "id": "SLIMEFUN:STORAGE-FORGE", "name": "存储单元工作台", "priority": 10 },
+    "structure": { "type": "single", "block": "minecraft:beehive" },
+    "input": { "slots": [10, 11, 12, 19, 20, 21, 28, 29, 30], "unordered": false },
+    "output": { "slots": [25] },
+    "craft": {
+      "type": "button",
+      "buttons": [{ "slot": 23, "actions": [{ "type": "left", "craftCount": 1 }] }]
+    }
+  },
+  {
+    "info": { "id": "SLIMEFUN:STORAGE_UPGRADE_TABLE", "name": "网络抽屉升级台", "priority": 10 },
+    "structure": { "type": "single", "block": "minecraft:cartography_table" },
+    "input": { "slots": [2, 3, 4, 11, 12, 13, 20, 21, 22], "unordered": false },
+    "output": { "slots": [15] },
+    "craft": {
+      "type": "button",
+      "buttons": [{ "slot": 17, "actions": [{ "type": "left", "craftCount": 1 }] }]
+    }
+  },
+  {
+    "info": { "id": "SLIMEFUN:QUANTUM-WORKBENCH", "name": "网络量子工作台", "priority": 10 },
+    "structure": { "type": "single", "block": "minecraft:dried_kelp_block" },
+    "input": { "slots": [10, 11, 12, 19, 20, 21, 28, 29, 30], "unordered": false },
+    "output": { "slots": [25] },
+    "craft": {
+      "type": "button",
+      "buttons": [{ "slot": 23, "actions": [{ "type": "left", "craftCount": 1 }] }]
+    }
+  },
+  {
+    "info": { "id": "SLIMEFUN:EXPANSION_WORKBENCH", "name": "网络拓展工作台", "priority": 10 },
+    "structure": { "type": "single", "block": "minecraft:bamboo_block" },
+    "input": { "slots": [10, 11, 12, 19, 20, 21, 28, 29, 30], "unordered": false },
+    "output": { "slots": [25] },
+    "craft": {
+      "type": "button",
+      "buttons": [{ "slot": 23, "actions": [{ "type": "left", "craftCount": 1 }] }]
+    }
+  },
+  {
+    "info": { "id": "SLIMEFUN:SUPREME_MULTIBLOCK_CORE", "name": "核心工厂", "priority": 1 },
+    "structure": {
+      "type": "multi",
+      "layers": [
+        ["minecraft:shroomlight", "minecraft:orange_stained_glass", "minecraft:shroomlight"],
+        ["minecraft:iron_bars", "minecraft:iron_trapdoor", "minecraft:iron_bars"],
+        ["minecraft:gold_block", "minecraft:dispenser", "minecraft:gold_block"]
+      ]
+    },
+    "input": {
+      "slots": [0, 1, 2, 3, 4, 5, 6, 7, 8],
+      "unordered": false,
+      "relativePos": { "x": 1, "y": 2 }
+    },
+    "output": { "slots": [0, 1, 2, 3, 4, 5, 6, 7, 8], "relativePos": { "x": 1, "y": 2 } },
+    "craft": { "type": "interact", "relativePos": { "x": 1, "y": 1 } }
+  },
+  {
+    "info": { "id": "SLIMEFUN:ORE_CRUSHER", "name": "矿石粉碎机", "priority": 1 },
+    "structure": {
+      "type": "multi",
+      "layers": [
+        [null, "minecraft:nether_brick_fence", null],
+        ["minecraft:iron_bars", "minecraft:dispenser", "minecraft:iron_bars"]
+      ]
+    },
+    "input": {
+      "slots": [0, 1, 2, 3, 4, 5, 6, 7, 8],
+      "unordered": false,
+      "relativePos": { "x": 1, "y": 1 }
+    },
+    "output": { "slots": [0, 1, 2, 3, 4, 5, 6, 7, 8], "relativePos": { "x": 1, "y": 1 } },
+    "craft": { "type": "interact", "relativePos": { "x": 1, "y": 0 } }
+  },
+  {
+    "info": { "id": "SLIMEFUN:GRIND_STONE", "name": "磨石", "priority": 1 },
+    "structure": { "type": "multi", "layers": [["minecraft:oak_fence"], ["minecraft:dispenser"]] },
+    "input": {
+      "slots": [0, 1, 2, 3, 4, 5, 6, 7, 8],
+      "unordered": false,
+      "relativePos": { "x": 0, "y": 1 }
+    },
+    "output": { "slots": [0, 1, 2, 3, 4, 5, 6, 7, 8], "relativePos": { "x": 0, "y": 1 } },
+    "craft": { "type": "interact", "relativePos": { "x": 0, "y": 0 } }
+  },
+  {
+    "info": { "id": "SLIMEFUN:SUPREME_MULTIBLOCK_MAGICAL", "name": "魔法工厂", "priority": 1 },
+    "structure": {
+      "type": "multi",
+      "layers": [
+        [
+          "minecraft:crying_obsidian",
+          "minecraft:purple_stained_glass",
+          "minecraft:crying_obsidian"
+        ],
+        ["minecraft:iron_bars", "minecraft:iron_trapdoor", "minecraft:iron_bars"],
+        ["minecraft:netherite_block", "minecraft:dispenser", "minecraft:netherite_block"]
+      ]
+    },
+    "input": {
+      "slots": [0, 1, 2, 3, 4, 5, 6, 7, 8],
+      "unordered": false,
+      "relativePos": { "x": 1, "y": 2 }
+    },
+    "output": { "slots": [0, 1, 2, 3, 4, 5, 6, 7, 8], "relativePos": { "x": 1, "y": 2 } },
+    "craft": { "type": "interact", "relativePos": { "x": 1, "y": 1 } }
+  },
+  {
+    "info": { "id": "SLIMEFUN:MAGIC_WORKBENCH", "name": "魔法工作台", "priority": 1 },
+    "structure": {
+      "type": "multi",
+      "layers": [["minecraft:bookshelf", "minecraft:crafting_table", "minecraft:dispenser"]]
+    },
+    "input": {
+      "slots": [0, 1, 2, 3, 4, 5, 6, 7, 8],
+      "unordered": false,
+      "relativePos": { "x": 2, "y": 0 }
+    },
+    "output": { "slots": [0, 1, 2, 3, 4, 5, 6, 7, 8], "relativePos": { "x": 2, "y": 0 } },
+    "craft": { "type": "interact", "relativePos": { "x": 1, "y": 0 } }
+  },
+  {
+    "info": { "id": "SLIMEFUN:PRESSURE_CHAMBER", "name": "压力机", "priority": 1 },
+    "structure": {
+      "type": "multi",
+      "layers": [
+        ["minecraft:smooth_stone_slab", "minecraft:dispenser", "minecraft:smooth_stone_slab"],
+        ["minecraft:piston", "minecraft:glass", "minecraft:piston"],
+        ["minecraft:piston", "minecraft:cauldron", "minecraft:piston"]
+      ]
+    },
+    "input": {
+      "slots": [0, 1, 2, 3, 4, 5, 6, 7, 8],
+      "unordered": false,
+      "relativePos": { "x": 1, "y": 0 }
+    },
+    "output": { "slots": [0, 1, 2, 3, 4, 5, 6, 7, 8], "relativePos": { "x": 1, "y": 0 } },
+    "craft": { "type": "interact", "relativePos": { "x": 1, "y": 2 } }
+  },
+  {
+    "info": { "id": "SLIMEFUN:COMPRESSOR", "name": "压缩机", "priority": 1 },
+    "structure": {
+      "type": "multi",
+      "layers": [
+        [null, "minecraft:nether_brick_fence", null],
+        ["minecraft:piston", "minecraft:dispenser", "minecraft:piston"]
+      ]
+    },
+    "input": {
+      "slots": [0, 1, 2, 3, 4, 5, 6, 7, 8],
+      "unordered": false,
+      "relativePos": { "x": 1, "y": 1 }
+    },
+    "output": { "slots": [0, 1, 2, 3, 4, 5, 6, 7, 8], "relativePos": { "x": 1, "y": 1 } },
+    "craft": { "type": "interact", "relativePos": { "x": 1, "y": 0 } }
+  },
+  {
+    "info": { "id": "SLIMEFUN:SMELTERY", "name": "冶炼炉", "priority": 1 },
+    "structure": {
+      "type": "multi",
+      "layers": [
+        [null, "minecraft:nether_brick_fence", null],
+        ["minecraft:nether_bricks", "minecraft:dispenser", "minecraft:nether_bricks"],
+        [null, "minecraft:flint_and_steel", null]
+      ]
+    },
+    "input": {
+      "slots": [0, 1, 2, 3, 4, 5, 6, 7, 8],
+      "unordered": false,
+      "relativePos": { "x": 1, "y": 1 }
+    },
+    "output": { "slots": [0, 1, 2, 3, 4, 5, 6, 7, 8], "relativePos": { "x": 1, "y": 1 } },
+    "craft": { "type": "interact", "relativePos": { "x": 1, "y": 0 } }
+  },
+  {
+    "info": { "id": "SLIMEFUN:ENHANCED_CRAFTING_TABLE", "name": "增强型工作台", "priority": 1 },
+    "structure": {
+      "type": "multi",
+      "layers": [["minecraft:crafting_table"], ["minecraft:dispenser"]]
+    },
+    "input": {
+      "slots": [0, 1, 2, 3, 4, 5, 6, 7, 8],
+      "unordered": false,
+      "relativePos": { "x": 0, "y": 1 }
+    },
+    "output": { "slots": [0, 1, 2, 3, 4, 5, 6, 7, 8], "relativePos": { "x": 0, "y": 1 } },
+    "craft": { "type": "interact", "relativePos": { "x": 0, "y": 0 } }
+  },
+  {
+    "info": { "id": "SLIMEFUN:ARMOR_FORGE", "name": "盔甲锻造台", "priority": 1 },
+    "structure": {
+      "type": "multi",
+      "block": "",
+      "layers": [["minecraft:anvil"], ["minecraft:dispenser"]]
+    },
+    "input": {
+      "slots": [0, 1, 2, 3, 4, 5, 6, 7, 8],
+      "unordered": false,
+      "relativePos": { "x": 0, "y": 1 }
+    },
+    "output": { "slots": [0, 1, 2, 3, 4, 5, 6, 7, 8], "relativePos": { "x": 0, "y": 1 } },
+    "craft": { "type": "interact", "relativePos": { "x": 0, "y": 0 } }
+  },
+  {
+    "info": { "id": "SLIMEFUN:SUPREME_MULTIBLOCK_GEAR", "name": "装备工厂", "priority": 1 },
+    "structure": {
+      "type": "multi",
+      "block": "",
+      "layers": [
+        ["minecraft:enchanting_table", "minecraft:dispenser", "minecraft:smithing_table"],
+        [
+          "minecraft:blue_stained_glass_pane",
+          "minecraft:anvil",
+          "minecraft:red_stained_glass_pane"
+        ],
+        [
+          "minecraft:blue_stained_glass_pane",
+          "minecraft:blast_furnace",
+          "minecraft:red_stained_glass_pane"
+        ]
+      ]
+    },
+    "input": {
+      "slots": [0, 1, 2, 3, 4, 5, 6, 7, 8],
+      "unordered": false,
+      "relativePos": { "x": 1, "y": 0 }
+    },
+    "output": { "slots": [2], "relativePos": { "x": 1, "y": 2 } },
+    "craft": { "type": "interact", "relativePos": { "x": 1, "y": 1 } }
+  }
+]
