@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Minecraft%20PVP%20addon%20banner%2C%20dark%20fantasy%20night%20sky%2C%20glowing%20red%20meteor%20falling%2C%20pixel%20art%20creeper%20face%20on%20left%2C%20enchanted%20diamond%20sword%20on%20right%2C%20obsidian%20and%20end%20portal%20background%2C%20deep%20purple%20and%20dark%20red%20color%20scheme%2C%20dramatic%20lighting%2C%20game%20plugin%20cover%20art%2C%20cinematic%20wide%20banner&image_size=landscape_16_9" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=venom&color=0:0d0d0d,30:1a0020,60:3d0050,100:800020&height=280&section=header&text=JERADDON&fontSize=86&fontColor=ff2244&fontAlignY=40&desc=⚔️%20Meteor%20Client%20·%20Minecraft%201.21.11%20·%20Fabric%20PVP%20Addon%20⚔️&descAlignY=62&descColor=dd88ff&animation=twinkling" width="100%"/>
 
 <pre>
      ██╗███████╗██████╗  █████╗ ██████╗ ██████╗  ██████╗ ███╗   ██╗
