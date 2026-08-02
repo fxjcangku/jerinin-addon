@@ -1,48 +1,51 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=venom&color=0:0d0d0d,30:1a0020,60:3d0050,100:800020&height=280&section=header&text=JERADDON&fontSize=86&fontColor=ff2244&fontAlignY=40&desc=⚔️%20Meteor%20Client%20·%20Minecraft%201.21.11%20·%20Fabric%20PVP%20Addon%20⚔️&descAlignY=62&descColor=dd88ff&animation=twinkling" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=venom&color=0:000000,25:0d001a,55:1a0035,80:3d0015,100:1a000d&height=300&section=header&text=JERADDON&fontSize=90&fontColor=ff1744&fontAlignY=42&desc=⚔️%20Minecraft%201.21.11%20·%20Fabric%20·%20Meteor%20Client%20PVP%20Addon%20⚔️&descAlignY=64&descColor=e040fb&animation=twinkling&stroke=ff1744&strokeWidth=1" width="100%"/>
+
+<br/>
 
 <pre>
-     ██╗███████╗██████╗  █████╗ ██████╗ ██████╗  ██████╗ ███╗   ██╗
-     ██║██╔════╝██╔══██╗██╔══██╗██╔══██╗██╔══██╗██╔═══██╗████╗  ██║
-     ██║█████╗  ██████╔╝███████║██║  ██║██║  ██║██║   ██║██╔██╗ ██║
-██   ██║██╔══╝  ██╔══██╗██╔══██║██║  ██║██║  ██║██║   ██║██║╚██╗██║
-╚█████╔╝███████╗██║  ██║██║  ██║██████╔╝██████╔╝╚██████╔╝██║ ╚████║
- ╚════╝ ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═══╝
+  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+  ░                                                           ░
+  ░   ██╗███████╗██████╗  █████╗ ██████╗ ██████╗  ██████╗   ░
+  ░   ██║██╔════╝██╔══██╗██╔══██╗██╔══██╗██╔══██╗██╔═══██╗  ░
+  ░   ██║█████╗  ██████╔╝███████║██║  ██║██║  ██║██║   ██║  ░
+  ░██ ██║██╔══╝  ██╔══██╗██╔══██║██║  ██║██║  ██║██║   ██║  ░
+  ░╚█████╔╝██████╗██║  ██║██║  ██║██████╔╝██████╔╝╚██████╔╝ ░
+  ░ ╚════╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝ ╚═════╝  ╚═════╝  ░
+  ░                                                           ░
+  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 </pre>
 
 <br/>
 
-<!-- MC 小生物装饰 -->
 <pre>
-   ╔══════════╗        ★ . · ˚  *  · ✦        ╔══════════╗
-   ║  ██  ██  ║                                ║  /\_/\   ║
-   ║          ║   ≺≺  J E R A D D O N  ≻≻      ║ ( ^ ω ^ )║
-   ║  ██████  ║                                ║  > ⚔️  <  ║
-   ║  █    █  ║        · * ˚ . ✦  ·  ★         ╚══════════╝
-   ╚══════════╝
-    [ Creeper ]                                 [ Jerinin's Cat ]
+      ╔════╗  ╔══╗  ╔══╗      ★ · · · · · · · · · · · · ★
+      ║ ██ ║  ║##║  ║\/║      · J · E · R · A · D · D · O · N ·
+      ║    ║  ║  ║  ║/\║      ★ · · · · · · · · · · · · ★
+      ║ ██ ║  ╚══╝  ║  ║        Jerinin's PVP Weapon Arsenal
+      ╚════╝ [Creeper] [⚔️ ]      Minecraft 1.21.11 · Fabric
 </pre>
 
 <br/>
 
-[![Minecraft](https://img.shields.io/badge/Minecraft-1.21.11-brightgreen?style=for-the-badge&logo=minecraft&logoColor=white)](https://minecraft.net)
-[![Fabric](https://img.shields.io/badge/Fabric-0.16.5-1976D2?style=for-the-badge)](https://fabricmc.net)
-[![Meteor](https://img.shields.io/badge/Meteor_Client-1.21.11--SNAPSHOT-8A2BE2?style=for-the-badge)](https://meteorclient.com)
-[![Java](https://img.shields.io/badge/Java-21-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)](https://adoptium.net)
-[![Version](https://img.shields.io/badge/Version-0.1.1-e94560?style=for-the-badge)](https://github.com/fxjcangku/jerinin-addon/releases)
-[![Stars](https://img.shields.io/github/stars/fxjcangku/jerinin-addon?style=for-the-badge&color=ffd700&logoColor=white)](https://github.com/fxjcangku/jerinin-addon/stargazers)
+[![Minecraft](https://img.shields.io/badge/Minecraft-1.21.11-1ebc1e?style=for-the-badge&logo=minecraft&logoColor=white)](https://minecraft.net)
+[![Fabric](https://img.shields.io/badge/Fabric-0.16.5-3b5ee8?style=for-the-badge)](https://fabricmc.net)
+[![Meteor](https://img.shields.io/badge/Meteor_Client-SNAPSHOT-9c27b0?style=for-the-badge)](https://meteorclient.com)
+[![Java](https://img.shields.io/badge/Java-21-f57c00?style=for-the-badge&logo=openjdk&logoColor=white)](https://adoptium.net)
+[![Version](https://img.shields.io/badge/Release-v1.0-ff1744?style=for-the-badge)](https://github.com/fxjcangku/jerinin-addon/releases)
+[![Stars](https://img.shields.io/github/stars/fxjcangku/jerinin-addon?style=for-the-badge&color=ffd700)](https://github.com/fxjcangku/jerinin-addon/stargazers)
 
 <br/>
 
-> ### 🐱 Jerinin 自研 · 实战打磨 · Meteor Client 战斗辅助插件
+> ### 🔥 Jerinin 自研 · 实战打磨 · 私有核心不开源
 > *「每一行代码，都是实战中打磨出来的。Sssss...」*
 
 <br/>
 
-[![Download](https://img.shields.io/badge/⬇️_立即下载_Jeraddon.jar-Releases-e94560?style=for-the-badge&logo=github&logoColor=white)](https://github.com/fxjcangku/jerinin-addon/releases/latest)
-&nbsp;
-[![Discord](https://img.shields.io/badge/Discord-加入服务器-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/vwrRCtET)
+[![Download](https://img.shields.io/badge/⬇️_下载_Jeraddon_v1.0-ff1744?style=for-the-badge&logo=github&logoColor=white)](https://github.com/fxjcangku/jerinin-addon/releases/latest)
+&nbsp;&nbsp;
+[![Discord](https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/vwrRCtET)
 
 </div>
 
@@ -50,31 +53,34 @@
 
 <div align="center">
 
-### `⚔️ PVP 战斗强化` &nbsp;·&nbsp; `🤖 全自动附魔` &nbsp;·&nbsp; `🚀 智能移动` &nbsp;·&nbsp; `🌐 多语言支持`
+`⚔️ PVP 战斗` &nbsp;·&nbsp; `🤖 全自动附魔` &nbsp;·&nbsp; `🚀 智能移动` &nbsp;·&nbsp; `🌐 五语言本地化`
 
 </div>
 
 ---
 
-## 🌟 关于 Jeraddon
+## 🌑 关于 Jeraddon
 
 <table>
 <tr>
-<td width="60%">
+<td width="58%">
 
-**Jeraddon** 是 **[Jerinin](https://github.com/fxjcangku)** 为 Minecraft 1.21.11 Fabric 平台从零自研的 Meteor Client 扩展插件集。
+**Jeraddon** 是 **[Jerinin](https://github.com/fxjcangku)** 专为 Minecraft 1.21.11 Fabric 平台自研的 Meteor Client 扩展插件。
 
-覆盖 **PVP 实战 · 自动化交易 · 智能移动 · 多语言本地化** 四大核心方向。所有模块均在实战服务器中经过大量测试验证，持续迭代优化。
+覆盖 **高空重锤连杀、长矛突袭、附魔全自动、五语言界面** 四大方向，所有逻辑均在真实服务器环境中经过大量对局验证。
+
+核心源码**加密混淆**，禁止反编译。
 
 </td>
-<td width="40%">
+<td width="42%">
 
 ```
-平台    Fabric 1.21.11
-框架    Meteor Client
-语言    Java 21
-版本    0.1.1
-核心    不开源 · 实战级
+平台   Fabric 1.21.11
+框架   Meteor Client SNAPSHOT
+语言   Java 21
+版本   v1.0 · 初代正式版
+混淆   ProGuard 超强版
+核心   私有 · 不开源
 ```
 
 </td>
@@ -83,204 +89,92 @@
 
 ---
 
-## ⚔️ 功能模块
-
-### 🗡️ 战斗 / Combat
+## ⚔️ 战斗模块
 
 <table>
-<thead>
-<tr>
-<th width="160">模块</th>
-<th>功能说明</th>
-<th width="90">类型</th>
-</tr>
-</thead>
+<thead><tr><th width="155">模块</th><th>说明</th><th width="80">标签</th></tr></thead>
 <tbody>
-<tr>
-<td>🔨 <b>传送重锤</b></td>
-<td>3D 分段传送至高空 → 自由落体重锤，集成图腾绕过、目标预测、安全扫描、自动归位</td>
-<td align="center"><code>PVP</code></td>
-</tr>
-<tr>
-<td>🔨 <b>新TP重锤</b></td>
-<td>预测目标未来坐标后精准 TP → 多高度 VClip 连续重锤连杀</td>
-<td align="center"><code>PVP</code></td>
-</tr>
-<tr>
-<td>🗡️ <b>长矛杀戮</b></td>
-<td>自动锁定最近玩家切换长矛发动攻击，支持直接攻击 / 突进双模式</td>
-<td align="center"><code>PVP</code></td>
-</tr>
-<tr>
-<td>🛡️ <b>破盾重锤</b></td>
-<td>实时检测目标举盾状态 → 自动切斧破盾 → 破盾后无缝追击</td>
-<td align="center"><code>PVP</code></td>
-</tr>
-<tr>
-<td>📋 <b>白名单</b></td>
-<td>重锤 / 长矛攻击目标白名单管理，准星操作一键添加 / 移除</td>
-<td align="center"><code>辅助</code></td>
-</tr>
+<tr><td>🔨 <b>传送重锤</b></td><td>3D 分段 TP 至高空 → 自由落体重锤，集成图腾绕过 · 目标预测 · 安全扫描</td><td align="center"><code>PVP</code></td></tr>
+<tr><td>⚡ <b>新TP重锤</b></td><td>预测目标未来坐标 → 精准 TP → 多高度 VClip 连续重锤连杀</td><td align="center"><code>PVP</code></td></tr>
+<tr><td>🗡️ <b>长矛杀戮</b></td><td>自动锁定最近玩家切换长矛，直接攻击 / 突进冲刺双模式</td><td align="center"><code>PVP</code></td></tr>
+<tr><td>🛡️ <b>破盾重锤</b></td><td>实时检测举盾状态 → 自动切斧破盾 → 破盾后无缝追击</td><td align="center"><code>PVP</code></td></tr>
+<tr><td>📋 <b>白名单</b></td><td>精准管理攻击目标名单，准星操作一键添加 / 移除</td><td align="center"><code>辅助</code></td></tr>
 </tbody>
 </table>
 
-### 🚀 移动 / Movement
+## 🚀 移动模块
 
 <table>
-<thead>
-<tr>
-<th width="160">模块</th>
-<th>功能说明</th>
-<th width="90">类型</th>
-</tr>
-</thead>
+<thead><tr><th width="155">模块</th><th>说明</th><th width="80">标签</th></tr></thead>
 <tbody>
-<tr>
-<td>⬆️ <b>垂直上升</b></td>
-<td>分段垂直发包上升，可精确控制每段高度与速度</td>
-<td align="center"><code>移动</code></td>
-</tr>
-<tr>
-<td>💧 <b>自动落地水</b></td>
-<td>自由落体或着火时自动放水救命，落地后静默收回恢复原槽位</td>
-<td align="center"><code>安全</code></td>
-</tr>
+<tr><td>⬆️ <b>垂直上升</b></td><td>分段垂直发包上升，精确控制每段高度与速度间隔</td><td align="center"><code>移动</code></td></tr>
+<tr><td>💧 <b>自动落地水</b></td><td>坠落或着火时自动放水救命，落地后静默收回槽位</td><td align="center"><code>安全</code></td></tr>
 </tbody>
 </table>
 
-### 🤖 自动化 / Automation
+## 🤖 自动化模块
 
 <table>
-<thead>
-<tr>
-<th width="160">模块</th>
-<th>功能说明</th>
-<th width="90">类型</th>
-</tr>
-</thead>
+<thead><tr><th width="155">模块</th><th>说明</th><th width="80">标签</th></tr></thead>
 <tbody>
-<tr>
-<td>📚 <b>附魔交易所</b></td>
-<td>全自动附魔刷新：Baritone 寻路 → 搜索村民 → 放讲台 → 读取交易 → 购买目标附魔</td>
-<td align="center"><code>全自动</code></td>
-</tr>
-<tr>
-<td>💎 <b>圆石出售</b></td>
-<td>背包圆石达到阈值自动出售，含防掉线心跳检测，附 HUD 实时库存显示</td>
-<td align="center"><code>经济</code></td>
-</tr>
+<tr><td>📚 <b>附魔交易所</b></td><td>Baritone 寻路 → 搜索村民 → 放讲台 → 读交易 → 购买目标附魔，全自动</td><td align="center"><code>全自动</code></td></tr>
+<tr><td>💎 <b>圆石出售</b></td><td>圆石达阈值自动出售，防掉线心跳 + HUD 实时库存</td><td align="center"><code>经济</code></td></tr>
 </tbody>
 </table>
 
-### 🌐 本地化 / Localization
-
-<table>
-<thead>
-<tr>
-<th width="160">模块</th>
-<th>功能说明</th>
-<th width="90">类型</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>🌐 <b>界面汉化</b></td>
-<td>五语言实时切换，覆盖所有 Jeraddon 模块名称与设置项</td>
-<td align="center"><code>客户端</code></td>
-</tr>
-</tbody>
-</table>
-
----
-
-## 🌍 多语言支持
+## 🌐 本地化
 
 <div align="center">
 
-| 语言 | 覆盖范围 | 状态 |
-|:----:|:--------:|:----:|
-| 🇨🇳 简体中文 | Jeraddon 全模块 | ✅ 完整 |
-| 🇹🇼 繁體中文 | Jeraddon 全模块 | ✅ 完整 |
-| 🇯🇵 日本語 | Jeraddon 全模块 | ✅ 完整 |
-| 🇰🇷 한국어 | Jeraddon 全模块 | ✅ 完整 |
-| 🇬🇧 English | 原文默认 | ✅ 完整 |
-
-</div>
-
-> Meteor Client 原版模块在日文/韩文模式下显示英文原名，Jeraddon 自研模块提供完整翻译。
-
----
-
-## 📥 安装指南
-
-### 前置要求
-
-<div align="center">
-
-| 组件 | 版本要求 | 下载 |
-|:----:|:--------:|:----:|
-| Minecraft | `1.21.11` | [官网](https://minecraft.net) |
-| Fabric Loader | `≥ 0.16.5` | [fabricmc.net](https://fabricmc.net/use/installer/) |
-| Meteor Client | `1.21.11-SNAPSHOT` | [meteorclient.com](https://meteorclient.com) |
-| Baritone | `1.21.11`（附魔模块必需）| [Releases](https://github.com/fxjcangku/jerinin-addon/releases/latest) |
-
-</div>
-
-### 安装步骤
-
-```
-① 安装 Fabric Loader  →  https://fabricmc.net/use/installer/
-② 安装 Meteor Client  →  https://meteorclient.com
-③ 下载 Jeraddon.jar   →  放入 .minecraft/mods/
-④ 如需附魔交易所       →  同时放入 Baritone-1.21.11.jar
-⑤ 启动游戏            →  Right Shift 打开 Meteor
-⑥ 找到「Jeraddon 通用」分类，开启所需模块
-```
-
-<div align="center">
-
-[![Download Latest](https://img.shields.io/badge/⬇️_下载_Jeraddon.jar-最新_Release-e94560?style=for-the-badge&logo=github&logoColor=white)](https://github.com/fxjcangku/jerinin-addon/releases/latest)
+| 🇨🇳 简体中文 | 🇹🇼 繁體中文 | 🇯🇵 日本語 | 🇰🇷 한국어 | 🇬🇧 English |
+|:-----------:|:-----------:|:---------:|:---------:|:-----------:|
+| ✅ 完整 | ✅ 完整 | ✅ 完整 | ✅ 完整 | ✅ 原文 |
 
 </div>
 
 ---
 
-## 🗺️ 关于 Baritone
-
-**附魔交易所**的自动寻路功能需要安装 Baritone。
-
-原作者：[cabaletta/baritone](https://github.com/cabaletta/baritone) · 本发布包提供 1.21.11 移植版，可在 Releases 页面一并下载。
-
----
-
-## ⚠️ 免责声明
+## 📥 安装
 
 ```
-· 核心源码不开源，禁止反编译传播
-· 请勿在禁用 Mod 的服务器上使用
-· 使用本插件产生的一切后果由使用者自行承担
+① Fabric Loader  ≥ 0.16.5   →  https://fabricmc.net/use/installer/
+② Meteor Client  SNAPSHOT   →  https://meteorclient.com
+③ Jeraddon.jar              →  放入 .minecraft/mods/
+④ Baritone.jar（附魔用）    →  同放 .minecraft/mods/
+⑤ Right Shift 打开 Meteor  →  找「Jeraddon 通用」分类
 ```
-
----
-
-## 📬 联系作者
 
 <div align="center">
 
-[![GitHub](https://img.shields.io/badge/GitHub-fxjcangku-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/fxjcangku)
-&nbsp;
-[![Discord](https://img.shields.io/badge/Discord-加入服务器-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/vwrRCtET)
+[![Download v1.0](https://img.shields.io/badge/⬇️_Jeraddon_v1.0_%2B_Baritone-最新_Release-ff1744?style=for-the-badge&logo=github&logoColor=white)](https://github.com/fxjcangku/jerinin-addon/releases/latest)
 
 </div>
 
 ---
 
+## ⚠️ 声明
+
+```
+· 核心源码加密混淆，禁止反编译传播
+· 请勿在禁用 Mod 的服务器使用
+· 使用产生的一切后果由使用者自行承担
+```
+
+---
+
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0f0020,50:1a0030,100:0a0010&height=130&section=footer" width="100%"/>
+<pre>
+  ╔══════════╗          N I G H T   O F   T H E   C R E E P E R         ╔══════════╗
+  ║  ██  ██  ║    ★  ·  ·  ★  ·  ·  ★  ·  ·  ★  ·  ·  ★  ·  ·  ★     ║  /\_/\   ║
+  ║          ║                                                           ║ (• ω •)  ║
+  ║  ██████  ║          Made with ❤️  by  J e r i n i n                 ║  > ⚔️ <   ║
+  ║  █    █  ║    ★  ·  ·  ★  ·  ·  ★  ·  ·  ★  ·  ·  ★  ·  ·  ★     ╚══════════╝
+  ╚══════════╝
+</pre>
 
-*Made with ❤️ by **Jerinin** · Powered by [Meteor Client](https://meteorclient.com)*
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:1a000d,50:1a0035,100:000000&height=120&section=footer" width="100%"/>
 
-**⭐ 觉得不错请点个 Star！**
+*Powered by [Meteor Client](https://meteorclient.com) · ⭐ 觉得不错请点个 Star！*
 
 </div>
