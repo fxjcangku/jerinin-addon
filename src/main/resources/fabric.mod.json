@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "id": "jeraddon",
+  "version": "${version}",
+  "name": "Jeraddon",
+  "description": "Jeraddon — Jerinin 自研 Meteor Client 扩展。战斗：传送重锤、新TP重锤、长矛杀戮、破盾重锤、白名单；移动：垂直上升、自动落地水；自动化：附魔交易所（自动刷附魔）、圆石出售；工具：界面汉化。",
+  "authors": [
+    "Jerinin"
+  ],
+  "contact": {
+    "homepage": "https://github.com/fxjcangku/jerinin-addon",
+    "sources": "https://github.com/fxjcangku/jerinin-addon",
+    "issues": "https://github.com/fxjcangku/jerinin-addon/issues"
+  },
+  "icon": "assets/template/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "meteor": [
+      "com.example.addon.AddonTemplate"
+    ]
+  },
+  "mixins": [
+    "addon-template.mixins.json"
+  ],
+  "custom": {
+    "meteor-client:color": "225,25,25",
+    "modmenu": {
+      "parent": {
+        "id": "meteor-client"
+      }
+    }
+  },
+  "depends": {
+    "java": ">=21",
+    "minecraft": "${minecraft_version}",
+    "meteor-client": "*"
+  },
+  "suggests": {
+    "modmenu": "*"
+  }
+}
