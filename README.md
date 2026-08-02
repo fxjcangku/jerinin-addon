@@ -1,8 +1,6 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0a0010,30:1a0030,60:2d0050,100:0f0020&height=240&section=header&text=JERADDON&fontSize=80&fontColor=e94560&fontAlignY=38&desc=Meteor%20Client%20%7C%20Minecraft%201.21.11%20%7C%20Fabric%20PVP%20Addon&descAlignY=58&descColor=c084fc&animation=fadeIn&stroke=e94560&strokeWidth=2" width="100%"/>
-
-<br/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:050014,20:100028,50:2d0050,80:1a0a00,100:0f0020&height=260&section=header&text=JERADDON&fontSize=82&fontColor=e94560&fontAlignY=36&desc=⚔️%20Meteor%20Client%20%7C%20Minecraft%201.21.11%20%7C%20Fabric%20PVP%20Addon%20⚔️&descAlignY=56&descColor=c084fc&animation=fadeIn" width="100%"/>
 
 <pre>
      ██╗███████╗██████╗  █████╗ ██████╗ ██████╗  ██████╗ ███╗   ██╗
@@ -15,17 +13,30 @@
 
 <br/>
 
-[![Minecraft](https://img.shields.io/badge/Minecraft-1.21.11-brightgreen?style=for-the-badge&logo=minecraft&logoColor=white)](https://minecraft.net)
-[![Fabric](https://img.shields.io/badge/Fabric-0.16.5-1976D2?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNiAxNiI+PC9zdmc+&logoColor=white)](https://fabricmc.net)
-[![Meteor](https://img.shields.io/badge/Meteor_Client-1.21.11--SNAPSHOT-8A2BE2?style=for-the-badge)](https://meteorclient.com)
-[![Java](https://img.shields.io/badge/Java-21-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)](https://adoptium.net)
-[![Version](https://img.shields.io/badge/Version-0.1.1-e94560?style=for-the-badge)](https://github.com/fxjcangku/jerinin-addon/releases)
-[![Stars](https://img.shields.io/github/stars/fxjcangku/jerinin-addon?style=for-the-badge&color=ffd700&logo=star&logoColor=white)](https://github.com/fxjcangku/jerinin-addon/stargazers)
+<!-- MC 小生物装饰 -->
+<pre>
+   ╔══════════╗        ★ . · ˚  *  · ✦        ╔══════════╗
+   ║  ██  ██  ║                                ║  /\_/\   ║
+   ║          ║   ≺≺  J E R A D D O N  ≻≻      ║ ( ^ ω ^ )║
+   ║  ██████  ║                                ║  > ⚔️  <  ║
+   ║  █    █  ║        · * ˚ . ✦  ·  ★         ╚══════════╝
+   ╚══════════╝
+    [ Creeper ]                                 [ Jerinin's Cat ]
+</pre>
 
 <br/>
 
-> ### ⚡ Jerinin 自研 · 实战打磨 · Meteor Client 战斗辅助插件
-> *「每一行代码，都是实战中打磨出来的。」*
+[![Minecraft](https://img.shields.io/badge/Minecraft-1.21.11-brightgreen?style=for-the-badge&logo=minecraft&logoColor=white)](https://minecraft.net)
+[![Fabric](https://img.shields.io/badge/Fabric-0.16.5-1976D2?style=for-the-badge)](https://fabricmc.net)
+[![Meteor](https://img.shields.io/badge/Meteor_Client-1.21.11--SNAPSHOT-8A2BE2?style=for-the-badge)](https://meteorclient.com)
+[![Java](https://img.shields.io/badge/Java-21-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)](https://adoptium.net)
+[![Version](https://img.shields.io/badge/Version-0.1.1-e94560?style=for-the-badge)](https://github.com/fxjcangku/jerinin-addon/releases)
+[![Stars](https://img.shields.io/github/stars/fxjcangku/jerinin-addon?style=for-the-badge&color=ffd700&logoColor=white)](https://github.com/fxjcangku/jerinin-addon/stargazers)
+
+<br/>
+
+> ### 🐱 Jerinin 自研 · 实战打磨 · Meteor Client 战斗辅助插件
+> *「每一行代码，都是实战中打磨出来的。Sssss...」*
 
 <br/>
 
