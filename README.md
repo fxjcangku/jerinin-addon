@@ -1,6 +1,14 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=venom&color=0:000000,25:0d001a,55:1a0035,80:3d0015,100:1a000d&height=300&section=header&text=JERADDON&fontSize=90&fontColor=ff1744&fontAlignY=42&desc=⚔️%20Minecraft%201.21.11%20·%20Fabric%20·%20Meteor%20Client%20PVP%20Addon%20⚔️&descAlignY=64&descColor=e040fb&animation=twinkling&stroke=ff1744&strokeWidth=1" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=shark&color=0:000000,30:1a0020,60:3d0030,90:1a000d,100:000000&height=280&section=header&reversal=false&animation=fadeIn" width="100%"/>
+
+<br/>
+
+<img src="https://readme-typing-svg.demolab.com?font=Press+Start+2P&size=28&duration=3000&pause=1000&color=FF1744&center=true&vCenter=true&width=800&height=80&lines=JERADDON;Meteor+Client+Addon;PVP+Arsenal+v1.0;Minecraft+1.21.11" alt="Typing SVG"/>
+
+<br/>
+
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=16&duration=4000&pause=800&color=E040FB&center=true&vCenter=true&width=700&height=40&lines=⚔️+Meteor+Client+·+Minecraft+1.21.11+·+Fabric+PVP+Addon+⚔️" alt="subtitle"/>
 
 <br/>
 
@@ -69,7 +77,7 @@
 
 覆盖 **高空重锤连杀、长矛突袭、附魔全自动、五语言界面** 四大方向，所有逻辑均在真实服务器环境中经过大量对局验证。
 
-核心源码**加密混淆**，禁止反编译。
+核心代码**私有保护**，不对外开放。
 
 </td>
 <td width="42%">
@@ -79,7 +87,7 @@
 框架   Meteor Client SNAPSHOT
 语言   Java 21
 版本   v1.0 · 初代正式版
-混淆   ProGuard 超强版
+混淆   私有保护
 核心   私有 · 不开源
 ```
 
@@ -155,7 +163,7 @@
 ## ⚠️ 声明
 
 ```
-· 核心源码加密混淆，禁止反编译传播
+· 核心代码私有保护，不对外开放
 · 请勿在禁用 Mod 的服务器使用
 · 使用产生的一切后果由使用者自行承担
 ```
