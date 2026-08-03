@@ -34,7 +34,7 @@
 [![Version](https://img.shields.io/badge/Release-v1.1-ff1744?style=for-the-badge)](https://github.com/fxjcangku/jerinin-addon/releases)
 [![Stars](https://img.shields.io/github/stars/fxjcangku/jerinin-addon?style=for-the-badge&color=ffd700)](https://github.com/fxjcangku/jerinin-addon/stargazers)
 
-> ### 🔥 Jerinin 自研 · 实战打磨 · 私有核心不开源
+> ### 🔥 Jerinin 自研 · 实战打磨 · 核心不开源
 > *「每一行代码，都是实战中打磨出来的。Sssss...」*
 
 [![Download](https://img.shields.io/badge/⬇️_下载_Jeraddon_v1.1-ff1744?style=for-the-badge&logo=github&logoColor=white)](https://github.com/fxjcangku/jerinin-addon/releases/latest)
@@ -63,8 +63,6 @@
 
 覆盖 **高空重锤连杀、长矛突袭、服务器自动化、附魔全自动、五语言界面** 五大方向，所有逻辑均在真实服务器环境中经过大量对局验证。
 
-核心代码**私有保护**，不对外开放。
-
 </td>
 <td width="42%">
 
@@ -72,9 +70,8 @@
 平台   Fabric 1.21.11
 框架   Meteor Client SNAPSHOT
 语言   Java 21
-版本   v1.1 · 模块扩充版
-混淆   私有保护
-核心   私有 · 不开源
+版本   v1.1
+核心   不开源
 ```
 
 </td>
@@ -122,7 +119,7 @@
 <table>
 <thead><tr><th width="155">模块</th><th>说明</th><th width="80">标签</th></tr></thead>
 <tbody>
-<tr><td>🔍 <b>物品信息查看器</b></td><td>按快捷键扫描手持物品，输出 ID、附魔、Lore、CustomModelData、PublicBukkitValues 等完整 NBT 数据，游戏内显示或生成 TXT 文件</td><td align="center"><code>工具</code></td></tr>
+<tr><td>🔍 <b>物品信息查看器</b></td><td>按快捷键扫描手持物品，输出 ID、附魔、Lore、CustomModelData、PublicBukkitValues 等完整数据，游戏内显示或生成 TXT 文件</td><td align="center"><code>工具</code></td></tr>
 </tbody>
 </table>
 
@@ -143,7 +140,7 @@
 ```
 ① Fabric Loader  ≥ 0.16.5   →  https://fabricmc.net/use/installer/
 ② Meteor Client  SNAPSHOT   →  https://meteorclient.com
-③ Jerinin-addon-Official.jar →  放入 .minecraft/mods/
+③ Jeraddon.jar              →  放入 .minecraft/mods/
 ④ Baritone.jar（附魔用）    →  同放 .minecraft/mods/
 ⑤ Right Shift 打开 Meteor   →  找「Jeraddon 通用」分类
 ```
@@ -200,7 +197,7 @@
 ## ⚠️ 声明
 
 ```
-· 核心代码私有保护，不对外开放
+· 核心代码不对外开放
 · 请勿在禁用 Mod 的服务器使用
 · 使用产生的一切后果由使用者自行承担
 ```
