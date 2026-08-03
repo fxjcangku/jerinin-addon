@@ -34,7 +34,7 @@
 [![Version](https://img.shields.io/badge/Release-v1.1-ff1744?style=for-the-badge)](https://github.com/fxjcangku/jerinin-addon/releases)
 [![Stars](https://img.shields.io/github/stars/fxjcangku/jerinin-addon?style=for-the-badge&color=ffd700)](https://github.com/fxjcangku/jerinin-addon/stargazers)
 
-> ### 🔥 Jerinin 自研 · 实战打磨 · 核心不开源
+> ### 🔥 Jerinin 自研 · 实战打磨
 > *「每一行代码，都是实战中打磨出来的。Sssss...」*
 
 [![Download](https://img.shields.io/badge/⬇️_下载_Jeraddon_v1.1-ff1744?style=for-the-badge&logo=github&logoColor=white)](https://github.com/fxjcangku/jerinin-addon/releases/latest)
@@ -71,7 +71,6 @@
 框架   Meteor Client SNAPSHOT
 语言   Java 21
 版本   v1.1
-核心   不开源
 ```
 
 </td>
@@ -197,7 +196,6 @@
 ## ⚠️ 声明
 
 ```
-· 核心代码不对外开放
 · 请勿在禁用 Mod 的服务器使用
 · 使用产生的一切后果由使用者自行承担
 ```
