@@ -2,15 +2,9 @@
 
 <img src="https://capsule-render.vercel.app/api?type=shark&color=0:000000,30:1a0020,60:3d0030,90:1a000d,100:000000&height=280&section=header&reversal=false&animation=fadeIn" width="100%"/>
 
-<br/>
-
-<img src="https://readme-typing-svg.demolab.com?font=Press+Start+2P&size=28&duration=3000&pause=1000&color=FF1744&center=true&vCenter=true&width=800&height=80&lines=JERADDON;Meteor+Client+Addon;PVP+Arsenal+v1.0;Minecraft+1.21.11" alt="Typing SVG"/>
-
-<br/>
+<img src="https://readme-typing-svg.demolab.com?font=Press+Start+2P&size=28&duration=3000&pause=1000&color=FF1744&center=true&vCenter=true&width=800&height=80&lines=JERADDON;Meteor+Client+Addon;PVP+Arsenal+v1.1;Minecraft+1.21.11" alt="Typing SVG"/>
 
 <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=16&duration=4000&pause=800&color=E040FB&center=true&vCenter=true&width=700&height=40&lines=⚔️+Meteor+Client+·+Minecraft+1.21.11+·+Fabric+PVP+Addon+⚔️" alt="subtitle"/>
-
-<br/>
 
 <pre>
   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
@@ -25,8 +19,6 @@
   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 </pre>
 
-<br/>
-
 <pre>
       ╔════╗  ╔══╗  ╔══╗      ★ · · · · · · · · · · · · ★
       ║ ██ ║  ║##║  ║\/║      · J · E · R · A · D · D · O · N ·
@@ -35,23 +27,17 @@
       ╚════╝ [Creeper] [⚔️ ]      Minecraft 1.21.11 · Fabric
 </pre>
 
-<br/>
-
 [![Minecraft](https://img.shields.io/badge/Minecraft-1.21.11-1ebc1e?style=for-the-badge&logo=minecraft&logoColor=white)](https://minecraft.net)
 [![Fabric](https://img.shields.io/badge/Fabric-0.16.5-3b5ee8?style=for-the-badge)](https://fabricmc.net)
 [![Meteor](https://img.shields.io/badge/Meteor_Client-SNAPSHOT-9c27b0?style=for-the-badge)](https://meteorclient.com)
 [![Java](https://img.shields.io/badge/Java-21-f57c00?style=for-the-badge&logo=openjdk&logoColor=white)](https://adoptium.net)
-[![Version](https://img.shields.io/badge/Release-v1.0-ff1744?style=for-the-badge)](https://github.com/fxjcangku/jerinin-addon/releases)
+[![Version](https://img.shields.io/badge/Release-v1.1-ff1744?style=for-the-badge)](https://github.com/fxjcangku/jerinin-addon/releases)
 [![Stars](https://img.shields.io/github/stars/fxjcangku/jerinin-addon?style=for-the-badge&color=ffd700)](https://github.com/fxjcangku/jerinin-addon/stargazers)
-
-<br/>
 
 > ### 🔥 Jerinin 自研 · 实战打磨 · 私有核心不开源
 > *「每一行代码，都是实战中打磨出来的。Sssss...」*
 
-<br/>
-
-[![Download](https://img.shields.io/badge/⬇️_下载_Jeraddon_v1.0-ff1744?style=for-the-badge&logo=github&logoColor=white)](https://github.com/fxjcangku/jerinin-addon/releases/latest)
+[![Download](https://img.shields.io/badge/⬇️_下载_Jeraddon_v1.1-ff1744?style=for-the-badge&logo=github&logoColor=white)](https://github.com/fxjcangku/jerinin-addon/releases/latest)
 &nbsp;&nbsp;
 [![Discord](https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/vwrRCtET)
 
@@ -61,7 +47,7 @@
 
 <div align="center">
 
-`⚔️ PVP 战斗` &nbsp;·&nbsp; `🤖 全自动附魔` &nbsp;·&nbsp; `🚀 智能移动` &nbsp;·&nbsp; `🌐 五语言本地化`
+`⚔️ PVP 战斗` &nbsp;·&nbsp; `🤖 全自动附魔` &nbsp;·&nbsp; `🚀 智能移动` &nbsp;·&nbsp; `🔌 服务器自动化` &nbsp;·&nbsp; `🌐 五语言本地化`
 
 </div>
 
@@ -75,7 +61,7 @@
 
 **Jeraddon** 是 **[Jerinin](https://github.com/fxjcangku)** 专为 Minecraft 1.21.11 Fabric 平台自研的 Meteor Client 扩展插件。
 
-覆盖 **高空重锤连杀、长矛突袭、附魔全自动、五语言界面** 四大方向，所有逻辑均在真实服务器环境中经过大量对局验证。
+覆盖 **高空重锤连杀、长矛突袭、服务器自动化、附魔全自动、五语言界面** 五大方向，所有逻辑均在真实服务器环境中经过大量对局验证。
 
 核心代码**私有保护**，不对外开放。
 
@@ -86,7 +72,7 @@
 平台   Fabric 1.21.11
 框架   Meteor Client SNAPSHOT
 语言   Java 21
-版本   v1.0 · 初代正式版
+版本   v1.1 · 模块扩充版
 混淆   私有保护
 核心   私有 · 不开源
 ```
@@ -115,7 +101,7 @@
 <table>
 <thead><tr><th width="155">模块</th><th>说明</th><th width="80">标签</th></tr></thead>
 <tbody>
-<tr><td>⬆️ <b>垂直上升</b></td><td>分段垂直发包上升，精确控制每段高度与速度间隔</td><td align="center"><code>移动</code></td></tr>
+<tr><td>⬆️ <b>垂直上升</b></td><td>分段发包垂直飞升，支持绕过分段模式 · 自动目标触发 · 启动延迟，到达高度自动关闭或悬停</td><td align="center"><code>移动</code></td></tr>
 <tr><td>💧 <b>自动落地水</b></td><td>坠落或着火时自动放水救命，落地后静默收回槽位</td><td align="center"><code>安全</code></td></tr>
 </tbody>
 </table>
@@ -125,8 +111,18 @@
 <table>
 <thead><tr><th width="155">模块</th><th>说明</th><th width="80">标签</th></tr></thead>
 <tbody>
+<tr><td>🔌 <b>服务器登入助手</b></td><td>全自动资源包接受 → 账号注册 → 登录 → 断线重连，状态机驱动，支持自定义密码及入服后执行命令</td><td align="center"><code>全自动</code></td></tr>
 <tr><td>📚 <b>附魔交易所</b></td><td>Baritone 寻路 → 搜索村民 → 放讲台 → 读交易 → 购买目标附魔，全自动</td><td align="center"><code>全自动</code></td></tr>
 <tr><td>💎 <b>圆石出售</b></td><td>圆石达阈值自动出售，防掉线心跳 + HUD 实时库存</td><td align="center"><code>经济</code></td></tr>
+</tbody>
+</table>
+
+## 🔍 实用工具
+
+<table>
+<thead><tr><th width="155">模块</th><th>说明</th><th width="80">标签</th></tr></thead>
+<tbody>
+<tr><td>🔍 <b>物品信息查看器</b></td><td>按快捷键扫描手持物品，输出 ID、附魔、Lore、CustomModelData、PublicBukkitValues 等完整 NBT 数据，游戏内显示或生成 TXT 文件</td><td align="center"><code>工具</code></td></tr>
 </tbody>
 </table>
 
@@ -147,16 +143,57 @@
 ```
 ① Fabric Loader  ≥ 0.16.5   →  https://fabricmc.net/use/installer/
 ② Meteor Client  SNAPSHOT   →  https://meteorclient.com
-③ Jeraddon.jar              →  放入 .minecraft/mods/
+③ Jerinin-addon-Official.jar →  放入 .minecraft/mods/
 ④ Baritone.jar（附魔用）    →  同放 .minecraft/mods/
-⑤ Right Shift 打开 Meteor  →  找「Jeraddon 通用」分类
+⑤ Right Shift 打开 Meteor   →  找「Jeraddon 通用」分类
 ```
 
 <div align="center">
 
-[![Download v1.0](https://img.shields.io/badge/⬇️_Jeraddon_v1.0_%2B_Baritone-最新_Release-ff1744?style=for-the-badge&logo=github&logoColor=white)](https://github.com/fxjcangku/jerinin-addon/releases/latest)
+[![Download v1.1](https://img.shields.io/badge/⬇️_Jeraddon_v1.1_%2B_Baritone-最新_Release-ff1744?style=for-the-badge&logo=github&logoColor=white)](https://github.com/fxjcangku/jerinin-addon/releases/latest)
 
 </div>
+
+---
+
+## 🧪 相关项目
+
+<table>
+<tr>
+<td width="50%">
+
+### 🟢 粘液助手 · slimefun-helper
+
+基于 **JsMacros** 的 Slimefun 全自动辅助工具，由 Jerinin 在原作者 KGentl 的 V4.5.2 基础上持续维护。
+
+**功能：**
+- 从粘液科技指南读取配方
+- 材料计算与合成队列生成
+- 仓储扫描与自动补货
+- 根据工作站配置全自动合成
+
+**版本线：**
+- `v4.5.2` — 原作者最终版（归档保存）
+- `v4.5.4` — 历史稳定版
+- `v4.6.0` — 跨服兼容版
+- `v5.0.0` — Jerinin 重构版
+
+</td>
+<td width="50%" valign="top">
+
+<br/>
+
+[![slimefun-helper](https://img.shields.io/badge/🟢_粘液助手_slimefun--helper-查看仓库-2ea44f?style=for-the-badge&logo=github&logoColor=white)](https://github.com/fxjcangku/slimefun-helper)
+
+<br/>
+
+> 原作者：KGentl（QQ：759745916）
+> 后续维护：Jerinin
+> 原版脚本代码、作者信息完整保留
+
+</td>
+</tr>
+</table>
 
 ---
 
