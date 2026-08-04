@@ -1,220 +1,108 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=shark&color=0:000000,30:1a0020,60:3d0030,90:1a000d,100:000000&height=280&section=header&reversal=false&animation=fadeIn" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:5b3a29,35:8f5f3d,70:6f8f3d,100:2f5d3a&height=190&section=header&text=JERADDON&fontSize=58&fontColor=fff3c4&fontAlignY=38&desc=一个慢慢长大的%20Minecraft%20Meteor%20扩展&descAlignY=62&descColor=f6d98b&animation=fadeIn" width="100%"/>
 
-<img src="https://readme-typing-svg.demolab.com?font=Press+Start+2P&size=28&duration=3000&pause=1000&color=FF1744&center=true&vCenter=true&width=800&height=80&lines=JERADDON;Meteor+Client+Addon;PVP+Arsenal+v1.1;Minecraft+1.21.11" alt="Typing SVG"/>
+<img src="https://readme-typing-svg.demolab.com?font=ZCOOL+KuaiLe&size=22&duration=3200&pause=900&color=6F8F3D&center=true&vCenter=true&width=720&height=45&lines=今天也来打理一下农场吧~;收获、探索、战斗，还有一点自动化;为日常游戏写的小工具合集" alt="Jeraddon"/>
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=16&duration=4000&pause=800&color=E040FB&center=true&vCenter=true&width=700&height=40&lines=⚔️+Meteor+Client+·+Minecraft+1.21.11+·+Fabric+PVP+Addon+⚔️" alt="subtitle"/>
+[![Minecraft](https://img.shields.io/badge/Minecraft-1.21.11-6f8f3d?style=flat-square)](https://www.minecraft.net/)
+[![Fabric](https://img.shields.io/badge/Fabric-0.16.5-8f5f3d?style=flat-square)](https://fabricmc.net/)
+[![Meteor](https://img.shields.io/badge/Meteor_Client-SNAPSHOT-6b4f3a?style=flat-square)](https://meteorclient.com/)
+[![Java](https://img.shields.io/badge/Java-21-bb7a3e?style=flat-square)](https://adoptium.net/)
+[![Latest](https://img.shields.io/github/v/release/fxjcangku/jerinin-addon?label=最新版本&color=6f8f3d&style=flat-square)](https://github.com/fxjcangku/jerinin-addon/releases/latest)
 
-<pre>
-  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-  ░                                                           ░
-  ░   ██╗███████╗██████╗  █████╗ ██████╗ ██████╗  ██████╗   ░
-  ░   ██║██╔════╝██╔══██╗██╔══██╗██╔══██╗██╔══██╗██╔═══██╗  ░
-  ░   ██║█████╗  ██████╔╝███████║██║  ██║██║  ██║██║   ██║  ░
-  ░██ ██║██╔══╝  ██╔══██╗██╔══██║██║  ██║██║  ██║██║   ██║  ░
-  ░╚█████╔╝██████╗██║  ██║██║  ██║██████╔╝██████╔╝╚██████╔╝ ░
-  ░ ╚════╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝ ╚═════╝  ╚═════╝  ░
-  ░                                                           ░
-  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-</pre>
-
-<pre>
-      ╔════╗  ╔══╗  ╔══╗      ★ · · · · · · · · · · · · ★
-      ║ ██ ║  ║##║  ║\/║      · J · E · R · A · D · D · O · N ·
-      ║    ║  ║  ║  ║/\║      ★ · · · · · · · · · · · · ★
-      ║ ██ ║  ╚══╝  ║  ║        Jerinin's PVP Weapon Arsenal
-      ╚════╝ [Creeper] [⚔️ ]      Minecraft 1.21.11 · Fabric
-</pre>
-
-[![Minecraft](https://img.shields.io/badge/Minecraft-1.21.11-1ebc1e?style=for-the-badge&logo=minecraft&logoColor=white)](https://minecraft.net)
-[![Fabric](https://img.shields.io/badge/Fabric-0.16.5-3b5ee8?style=for-the-badge)](https://fabricmc.net)
-[![Meteor](https://img.shields.io/badge/Meteor_Client-SNAPSHOT-9c27b0?style=for-the-badge)](https://meteorclient.com)
-[![Java](https://img.shields.io/badge/Java-21-f57c00?style=for-the-badge&logo=openjdk&logoColor=white)](https://adoptium.net)
-[![Version](https://img.shields.io/badge/Release-v1.1-ff1744?style=for-the-badge)](https://github.com/fxjcangku/jerinin-addon/releases)
-[![Stars](https://img.shields.io/github/stars/fxjcangku/jerinin-addon?style=for-the-badge&color=ffd700)](https://github.com/fxjcangku/jerinin-addon/stargazers)
-
-> ### 🔥 Jerinin 自研 · 实战打磨
-> *「每一行代码，都是实战中打磨出来的。Sssss...」*
-
-[![Download](https://img.shields.io/badge/⬇️_下载_Jeraddon_v1.1-ff1744?style=for-the-badge&logo=github&logoColor=white)](https://github.com/fxjcangku/jerinin-addon/releases/latest)
-&nbsp;&nbsp;
-[![Discord](https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/vwrRCtET)
+**[下载最新版本](https://github.com/fxjcangku/jerinin-addon/releases/latest)**　·　**[查看更新](https://github.com/fxjcangku/jerinin-addon/releases)**　·　**[提交问题](https://github.com/fxjcangku/jerinin-addon/issues)**
 
 </div>
 
 ---
 
-<div align="center">
+## 🌱 这是 Jeraddon
 
-`⚔️ PVP 战斗` &nbsp;·&nbsp; `🤖 全自动附魔` &nbsp;·&nbsp; `🚀 智能移动` &nbsp;·&nbsp; `🔌 服务器自动化` &nbsp;·&nbsp; `🌐 五语言本地化`
+Jeraddon 是一个面向 Minecraft 日常游戏的 Meteor Client 扩展。它没有复杂的包装，主要就是把自己想用的小功能慢慢整理起来：像一块刚开垦的田地，今天种下一个功能，明天再把它打磨得顺手一点。
 
-</div>
+它适合喜欢探索、种田、整理物品、跑服务器流程，也偶尔需要战斗辅助的玩家。
 
----
+## 🧺 功能一览
 
-## 🌑 关于 Jeraddon
+| 分类 | 内容 |
+| --- | --- |
+| 农业自动化 | 作物选择、成熟识别、路线规划、收获、补种、库存与容器辅助 |
+| 服务器辅助 | 资源包处理、自动注册、自动登录、进服指令、断线重连 |
+| 附魔交易 | 自动寻找村民、刷新讲台、识别目标附魔、购买交易 |
+| 日常工具 | 物品信息查看、中文界面、圆石出售、HUD 提示 |
+| 移动与战斗 | 垂直上升、自动落地水、长矛、重锤、破盾和白名单 |
 
-<table>
-<tr>
-<td width="58%">
+## 🍓 星露谷农业助手
 
-**Jeraddon** 是 **[Jerinin](https://github.com/fxjcangku)** 专为 Minecraft 1.21.11 Fabric 平台自研的 Meteor Client 扩展插件。
+农业功能是 Jeraddon 里单独的一块田地，支持服务器资源包中的自定义作物和部分原版作物。
 
-覆盖 **高空重锤连杀、长矛突袭、服务器自动化、附魔全自动、五语言界面** 五大方向，所有逻辑均在真实服务器环境中经过大量对局验证。
+- 支持 26 种自定义作物识别
+- 支持成熟状态扫描与作物筛选
+- 支持最近邻与路线规划
+- 支持可选收获、补种、返程和库存判断
+- 支持种子识别、容器存取和补给辅助
+- 提供中文的[作物资料与种子表](资料/农业/作物分类与种子表.csv)
 
-</td>
-<td width="42%">
+第一次使用时，建议先只开启扫描和预览，确认识别结果后再开启收获、补种和移动动作。
 
-```
-平台   Fabric 1.21.11
-框架   Meteor Client SNAPSHOT
-语言   Java 21
-版本   v1.1
-```
+## 🔑 离线服务器自动登入
 
-</td>
-</tr>
-</table>
+自动登入助手主要给需要 `/login`、`/register` 的离线模式服务器使用，也兼容正版账号进入离线模式服务器的情况。它不会改变 Minecraft 账号登录方式，只是在进入服务器后，根据服务器提示发送你已经配置好的命令。
 
----
+- 自动识别注册或登录提示
+- 支持按服务器保存登录信息
+- 支持离线昵称匹配
+- 支持登录后自动执行服务器指令
+- 支持资源包处理和断线重连
+- 账号密码只保存在本地游戏配置中，不提交到仓库
 
-## ⚔️ 战斗模块
+启用前请确认服务器允许相关操作，并仔细检查自己的本地配置。不要把密码写进截图、Issue 或公开文件。
 
-<table>
-<thead><tr><th width="155">模块</th><th>说明</th><th width="80">标签</th></tr></thead>
-<tbody>
-<tr><td>🔨 <b>传送重锤</b></td><td>3D 分段 TP 至高空 → 自由落体重锤，集成图腾绕过 · 目标预测 · 安全扫描</td><td align="center"><code>PVP</code></td></tr>
-<tr><td>⚡ <b>新TP重锤</b></td><td>预测目标未来坐标 → 精准 TP → 多高度 VClip 连续重锤连杀</td><td align="center"><code>PVP</code></td></tr>
-<tr><td>🗡️ <b>长矛杀戮</b></td><td>自动锁定最近玩家切换长矛，直接攻击 / 突进冲刺双模式</td><td align="center"><code>PVP</code></td></tr>
-<tr><td>🛡️ <b>破盾重锤</b></td><td>实时检测举盾状态 → 自动切斧破盾 → 破盾后无缝追击</td><td align="center"><code>PVP</code></td></tr>
-<tr><td>📋 <b>白名单</b></td><td>精准管理攻击目标名单，准星操作一键添加 / 移除</td><td align="center"><code>辅助</code></td></tr>
-</tbody>
-</table>
+## 🧙 附魔交易需要 Baritone
 
-## 🚀 移动模块
+附魔交易所使用 Baritone 进行寻路，所以只有使用附魔交易功能时才需要额外安装 Baritone。
 
-<table>
-<thead><tr><th width="155">模块</th><th>说明</th><th width="80">标签</th></tr></thead>
-<tbody>
-<tr><td>⬆️ <b>垂直上升</b></td><td>分段发包垂直飞升，支持绕过分段模式 · 自动目标触发 · 启动延迟，到达高度自动关闭或悬停</td><td align="center"><code>移动</code></td></tr>
-<tr><td>💧 <b>自动落地水</b></td><td>坠落或着火时自动放水救命，落地后静默收回槽位</td><td align="center"><code>安全</code></td></tr>
-</tbody>
-</table>
+安装顺序：
 
-## 🤖 自动化模块
+1. 安装 Minecraft 1.21.11、Fabric Loader、Meteor Client 和 Java 21。
+2. 从 [v1.2 Release](https://github.com/fxjcangku/jerinin-addon/releases/tag/v1.2) 下载 `Jeraddon-1.2.jar`。
+3. 同一发布页下载 `bariton1.21.11.jar`，和 Jeraddon 一起放进 `.minecraft/mods/`。
+4. 启动游戏，在 Meteor 菜单中打开对应功能。
 
-<table>
-<thead><tr><th width="155">模块</th><th>说明</th><th width="80">标签</th></tr></thead>
-<tbody>
-<tr><td>🔌 <b>服务器登入助手</b></td><td>全自动资源包接受 → 账号注册 → 登录 → 断线重连，状态机驱动，支持自定义密码及入服后执行命令</td><td align="center"><code>全自动</code></td></tr>
-<tr><td>📚 <b>附魔交易所</b></td><td>Baritone 寻路 → 搜索村民 → 放讲台 → 读交易 → 购买目标附魔，全自动</td><td align="center"><code>全自动</code></td></tr>
-<tr><td>💎 <b>圆石出售</b></td><td>圆石达阈值自动出售，防掉线心跳 + HUD 实时库存</td><td align="center"><code>经济</code></td></tr>
-</tbody>
-</table>
+Baritone 只作为附魔寻路功能的前置，不使用附魔交易时可以不安装。
 
-## 🔍 实用工具
+## 📦 下载安装
 
-<table>
-<thead><tr><th width="155">模块</th><th>说明</th><th width="80">标签</th></tr></thead>
-<tbody>
-<tr><td>🔍 <b>物品信息查看器</b></td><td>按快捷键扫描手持物品，输出 ID、附魔、Lore、CustomModelData、PublicBukkitValues 等完整数据，游戏内显示或生成 TXT 文件</td><td align="center"><code>工具</code></td></tr>
-</tbody>
-</table>
+| 版本 | 适合人群 | 页面 |
+| --- | --- | --- |
+| v1.2 | 当前推荐，包含农业自动化和离线登入更新 | [下载 v1.2](https://github.com/fxjcangku/jerinin-addon/releases/tag/v1.2) |
+| v1.1 | 经典稳定版本 | [下载 v1.1](https://github.com/fxjcangku/jerinin-addon/releases/tag/v1.1) |
+| v0.1.1 | 初始版本归档 | [下载 v0.1.1](https://github.com/fxjcangku/jerinin-addon/releases/tag/v0.1.1) |
 
-## 🌐 本地化
+下载后只需要把 Jeraddon JAR 放入 `mods` 文件夹。需要附魔寻路时，再把同一版本发布页中的 Baritone JAR 一起放入。
 
-<div align="center">
+## 📚 资料
 
-| 🇨🇳 简体中文 | 🇹🇼 繁體中文 | 🇯🇵 日本語 | 🇰🇷 한국어 | 🇬🇧 English |
-|:-----------:|:-----------:|:---------:|:---------:|:-----------:|
-| ✅ 完整 | ✅ 完整 | ✅ 完整 | ✅ 完整 | ✅ 原文 |
+- [农业使用说明](资料/农业/使用说明.md)
+- [作物分类与种子表](资料/农业/作物分类与种子表.csv)
+- [成熟状态与种子数据](资料/农业/成熟状态与种子数据.json)
+- [模块说明](docs/MODULES.md)
+- [常见问题](docs/FAQ.md)
 
-</div>
+## 🟢 相关项目
 
----
+[Slimefun Helper](https://github.com/fxjcangku/slimefun-helper) 是独立的粘液助手项目，拥有自己的版本线和下载页面。Jeraddon 不包含它的脚本文件。
 
-## 📥 安装
+## 📌 说明
 
-```
-① Fabric Loader  ≥ 0.16.5   →  https://fabricmc.net/use/installer/
-② Meteor Client  SNAPSHOT   →  https://meteorclient.com
-③ Jeraddon.jar              →  放入 .minecraft/mods/
-④ Baritone.jar（附魔用）    →  同放 .minecraft/mods/
-⑤ Right Shift 打开 Meteor   →  找「Jeraddon 通用」分类
-```
+本仓库是公开发布页，核心实现暂不公开；这里主要提供下载文件、使用说明和独立资料。Jeraddon 完全免费，作者只是有空就写一点自己想用的东西。
+
+请遵守服务器规则，不要在明确禁止相关功能的服务器使用。使用前请先在安全环境中测试。
 
 <div align="center">
 
-[![Download v1.1](https://img.shields.io/badge/⬇️_Jeraddon_v1.1_%2B_Baritone-最新_Release-ff1744?style=for-the-badge&logo=github&logoColor=white)](https://github.com/fxjcangku/jerinin-addon/releases/latest)
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:2f5d3a,45:6f8f3d,75:8f5f3d,100:5b3a29&height=110&section=footer&animation=fadeIn" width="100%"/>
 
-</div>
-
----
-
-## 🧪 相关项目
-
-<table>
-<tr>
-<td width="50%">
-
-### 🟢 粘液助手 · slimefun-helper
-
-基于 **JsMacros** 的 Slimefun 全自动辅助工具，由 Jerinin 在原作者 KGentl 的 V4.5.2 基础上持续维护。
-
-**功能：**
-- 从粘液科技指南读取配方
-- 材料计算与合成队列生成
-- 仓储扫描与自动补货
-- 根据工作站配置全自动合成
-
-**版本线：**
-- `v4.5.2` — 原作者最终版（归档保存）
-- `v4.5.4` — 历史稳定版
-- `v4.6.0` — 跨服兼容版
-- `v5.0.0` — Jerinin 重构版
-
-</td>
-<td width="50%" valign="top">
-
-<br/>
-
-[![slimefun-helper](https://img.shields.io/badge/🟢_粘液助手_slimefun--helper-查看仓库-2ea44f?style=for-the-badge&logo=github&logoColor=white)](https://github.com/fxjcangku/slimefun-helper)
-
-<br/>
-
-> 原作者：KGentl（QQ：759745916）
-> 后续维护：Jerinin
-> 原版脚本代码、作者信息完整保留
-
-</td>
-</tr>
-</table>
-
----
-
-## ⚠️ 声明
-
-```
-· 请勿在禁用 Mod 的服务器使用
-· 使用产生的一切后果由使用者自行承担
-```
-
----
-
-<div align="center">
-
-<pre>
-  ╔══════════╗          N I G H T   O F   T H E   C R E E P E R         ╔══════════╗
-  ║  ██  ██  ║    ★  ·  ·  ★  ·  ·  ★  ·  ·  ★  ·  ·  ★  ·  ·  ★     ║  /\_/\   ║
-  ║          ║                                                           ║ (• ω •)  ║
-  ║  ██████  ║          Made with ❤️  by  J e r i n i n                 ║  > ⚔️ <   ║
-  ║  █    █  ║    ★  ·  ·  ★  ·  ·  ★  ·  ·  ★  ·  ·  ★  ·  ·  ★     ╚══════════╝
-  ╚══════════╝
-</pre>
-
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:1a000d,50:1a0035,100:000000&height=120&section=footer" width="100%"/>
-
-*Powered by [Meteor Client](https://meteorclient.com) · ⭐ 觉得不错请点个 Star！*
+`愿你的背包有空位，农场有收成。`　🌾
 
 </div>
