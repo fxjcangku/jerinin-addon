@@ -85,9 +85,15 @@ Baritone 只作为附魔寻路功能的前置，不使用附魔交易时可以�
 
 - [农业使用说明](资料/农业/使用说明.md)
 - [作物分类与种子表](资料/农业/作物分类与种子表.csv)
+- [种子编号表](资料/农业/种子编号表.csv)
 - [成熟状态与种子数据](资料/农业/成熟状态与种子数据.json)
 - [模块说明](docs/MODULES.md)
 - [常见问题](docs/FAQ.md)
+
+## 💬 社区
+
+- Discord：[加入 Jerinin 社区](https://discord.gg/vwrRCtET)
+- GitHub：[提交 Issue](https://github.com/fxjcangku/jerinin-addon/issues)
 
 ## 🟢 相关项目
 
